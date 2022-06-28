@@ -1,0 +1,25 @@
+﻿<Window x:Class="ContactApp.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ContactApp"
+        mc:Ignorable="d"
+        Title="About" Height="350" Width="500">
+    <Grid Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}">
+        <Label Content="ContactApp" Margin="30,30,320,261" FontSize="20" 
+               FontFamily="Arial Black" Width="150" Height="40" >
+        </Label>
+        <Label Content="V 1.0.0" Margin="31,60,395,235" FontSize="15" 
+               FontFamily="Arial" Height="40" />
+        <Label Content="Author:" Margin="31,105,370,204" FontSize="15" 
+               FontFamily="Arial" />
+
+
+
+
+
+
+
+    </Grid>
+</Window>
