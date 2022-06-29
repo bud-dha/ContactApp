@@ -9,19 +9,19 @@
     <Grid>
         <Label Content="Surname:" FontSize="13" FontFamily="Arial" 
                Margin="16,36,0,0" Width="66" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox Name="SurnameTextBox" Margin="82,38,10,0" Text="TextBox" 
+        <TextBox Name="SurnameTextBox" Margin="82,38,10,0" 
                  Height="21" VerticalAlignment="Top" />
         <Label Content="Name:"  FontSize="13" FontFamily="Arial" 
                Margin="34,62,0,0" Width="48"  Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox Name="NameTextBox"  Margin="82,64,10,0" Text="TextBox" 
+        <TextBox Name="NameTextBox"  Margin="82,64,10,0" 
                  Height="21" VerticalAlignment="Top" />
         <Label Content="Phone:"  FontSize="13" FontFamily="Arial" 
                Margin="30,115,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox Name="PhoneTextBox"  Margin="82,117,10,0" Text="TextBox" 
-                 Height="21" VerticalAlignment="Top" />
+        <TextBox Name="PhoneTextBox" Margin="82,117,10,0" Text="+7-***-***-**-**" 
+                 Height="21" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" FontStyle="Italic" />
         <Label Content="Patronymic:" FontSize="13" FontFamily="Arial" 
                Margin="3,88,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox Name="PatronymicTextBox"  Margin="82,90,10,0" Text="TextBox" 
+        <TextBox Name="PatronymicTextBox"  Margin="82,90,10,0"
                  Height="21" VerticalAlignment="Top" />
         <Button Content="Ok" Width="40" Height="20" HorizontalAlignment="Left" Margin="305,151,0,0" VerticalAlignment="Top"
                 Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"/>

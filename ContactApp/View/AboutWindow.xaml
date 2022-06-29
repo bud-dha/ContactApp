@@ -20,12 +20,5 @@
             FontFamily="Arial" />
         <Label Content="2022 Nikita Martsenkovsky" Margin="31,283,260,26" FontSize="15" 
             FontFamily="Arial" />
-
-
-
-
-
-
-
     </Grid>
 </Window>

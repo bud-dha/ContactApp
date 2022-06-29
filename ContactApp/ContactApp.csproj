@@ -6,4 +6,22 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="View\icons8-add-phone-48.png" />
+    <None Remove="View\icons8-contacts-30.png" />
+    <None Remove="View\icons8-edit-48.png" />
+    <None Remove="View\icons8-remove-48.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\icons8-add-phone-48.png" />
+    <Resource Include="View\icons8-contacts-30.png" />
+    <Resource Include="View\icons8-edit-48.png" />
+    <Resource Include="View\icons8-remove-48.png" />
+  </ItemGroup>
+
 </Project>
