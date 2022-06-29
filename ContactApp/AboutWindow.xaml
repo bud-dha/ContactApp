@@ -5,15 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactApp"
         mc:Ignorable="d"
-        Title="About" Height="350" Width="500">
+        Title="About" Height="350" Width="500" MinHeight="350" MinWidth="500" MaxHeight="350" MaxWidth="350">
     <Grid Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}">
         <Label Content="ContactApp" Margin="30,30,320,261" FontSize="20" 
                FontFamily="Arial Black" Width="150" Height="40" >
         </Label>
         <Label Content="V 1.0.0" Margin="31,60,395,235" FontSize="15" 
                FontFamily="Arial" Height="40" />
-        <Label Content="Author:" Margin="31,105,370,204" FontSize="15" 
+        <Label Content="Author: Nikita Martsenkovsky" Margin="31,109,260,200" FontSize="15" 
                FontFamily="Arial" />
+        <Label Content="E-mail for feedback: martsenkovskyn@gmail.com" Margin="31,164,129,137" FontSize="15" 
+            FontFamily="Arial" />
+        <Label Content="GitHub: https://github.com/bud-dha" Margin="31,202,129,104" FontSize="15" 
+            FontFamily="Arial" />
+        <Label Content="2022 Nikita Martsenkovsky" Margin="31,283,260,26" FontSize="15" 
+            FontFamily="Arial" />
 
 
 

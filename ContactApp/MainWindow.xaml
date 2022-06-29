@@ -26,16 +26,16 @@
         <Label Content="Find:" Grid.Row="1" FontSize="13" FontFamily="Arial" 
                Margin="0,0,0,6" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Bottom" 
                Grid.Column="1"/>
-        <Button Name="AddButton" Grid.Column="1" Grid.Row="3" Height="35" Width="35" 
-                Margin="80,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Visibility="Visible" BorderThickness="0,0,0,0" Background="#FFDDDDDD" />
-        <Button Name="EditButton" Grid.Column="1" Grid.Row="3" Height="35" Width="35" 
-                Margin="40,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                BorderThickness="0,0,0,0" />
-        <Button Name="DeleteButton" Grid.Column="1" Grid.Row="3" Height="35" Width="35" 
+        <Button Content="Add" Name="AddButton" Grid.Column="1" Grid.Row="3" Height="35" Width="35" 
                 Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 BorderThickness="0,0,0,0"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="36,0,0,8" Text="TextBox" Height="21" VerticalAlignment="Bottom" />
+        <Button Content="Edit" Name="EditButton" Grid.Column="1" Grid.Row="3" Height="35" Width="35" 
+                Margin="40,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                BorderThickness="0,0,0,0" />
+        <Button Content="Remove" Name="RemoveButton" Grid.Column="1" Grid.Row="3" Height="35" Width="35" 
+                Margin="80,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Visibility="Visible" BorderThickness="0,0,0,0" Background="#FFDDDDDD" />
+        <TextBox Name="FindTextBox" Grid.Column="1" Grid.Row="1" Margin="36,0,0,8" Text="TextBox" Height="21" VerticalAlignment="Bottom" />
         <Menu Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Exit"/>
@@ -49,6 +49,26 @@
                 <MenuItem Header="About"/>
             </MenuItem>
         </Menu>
+        <Label Content="ID:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="54,11,0,0" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Name="IDTextBox" Grid.Row="2" Grid.Column="3" Margin="82,12,10,0" Text="TextBox" 
+                 Height="21" VerticalAlignment="Top" />
+        <Label Content="Surname:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="16,36,0,0" Width="66" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Name="SurnameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,38,10,0" Text="TextBox" 
+                 Height="21" VerticalAlignment="Top" />
+        <Label Content="Name:" Grid.Row="2" FontSize="13" FontFamily="Arial" 
+               Margin="34,60,0,0" Width="48" Grid.Column="3" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Name="NameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,63,10,0" Text="TextBox" 
+                 Height="21" VerticalAlignment="Top" />
+        <Label Content="Phone:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="30,115,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <TextBox Name="PhoneTextBox" Grid.Column="3" Grid.Row="2" Margin="82,117,10,0" Text="TextBox" 
+                 Height="21" VerticalAlignment="Top" />
+        <Label Content="Patronymic:" Grid.Row="2"  Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="3,86,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <TextBox Name="PatronymicTextBox" Grid.Column="3" Grid.Row="2" Margin="82,90,10,0" Text="TextBox" 
+                 Height="21" VerticalAlignment="Top" />
 
 
 
