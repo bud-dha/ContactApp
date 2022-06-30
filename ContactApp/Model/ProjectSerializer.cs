@@ -8,7 +8,7 @@ namespace ContactApp.Model
     /// <summary>
     /// Сохраняет и выгружает пользовательские данные.
     /// </summary>
-    class ProjectSerializer
+    public static class ProjectSerializer
     {
         /// <summary>
         /// Название файла сохранения.

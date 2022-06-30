@@ -66,7 +66,7 @@ namespace ContactApp.Model
         /// <summary>
         /// Задает и возвращает отчество контакта.
         /// </summary>
-        public string Patrinymic
+        public string Patronymic
         {
             get => _patronymic;
             set

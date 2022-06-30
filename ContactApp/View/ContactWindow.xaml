@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactApp"
         mc:Ignorable="d"
-        Title="Add/Edit Contact" Height="200" Width="400">
+        Title="Add/Edit Contact" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="C:\Users\user\Desktop\Иконки\icons8-edit-48.png">
     <Grid>
         <Label Content="Surname:" FontSize="13" FontFamily="Arial" 
                Margin="16,36,0,0" Width="66" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -23,9 +23,9 @@
                Margin="3,88,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
         <TextBox Name="PatronymicTextBox"  Margin="82,90,10,0"
                  Height="21" VerticalAlignment="Top" />
-        <Button Content="Ok" Width="40" Height="20" HorizontalAlignment="Left" Margin="305,151,0,0" VerticalAlignment="Top"
-                Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"/>
-        <Button Content="Cancel" Width="40" Height="20" HorizontalAlignment="Left" Margin="350,151,0,13"
-                Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"/>
+        <Button Content="Ok" Margin="0,0,75,13"
+                Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60"/>
+        <Button Content="Cancel" Margin="0,0,10,13"
+                Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" HorizontalAlignment="Right" Width="60" Height="30" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

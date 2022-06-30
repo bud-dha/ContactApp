@@ -21,5 +21,10 @@ namespace ContactApp
         {
             InitializeComponent();
         }
+
+        private void PhoneTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            PhoneTextBox.Text = "";
+        }
     }
 }
