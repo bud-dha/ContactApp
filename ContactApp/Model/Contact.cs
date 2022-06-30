@@ -7,9 +7,14 @@ namespace ContactApp.Model
     class Contact
     {
         /// <summary>
+        /// Начальное значение Id.
+        /// </summary>
+        private static int sId = 0;
+
+        /// <summary>
         /// Id контакта.
         /// </summary>
-        private readonly int Id = 0;
+        private readonly int Id;
 
         /// <summary>
         /// Имя контакта.
@@ -30,6 +35,11 @@ namespace ContactApp.Model
         /// Номер телефона контакта.
         /// </summary>
         private string _phone;
+
+        /// <summary>
+        /// Возвращает ID контакта.
+        /// </summary>
+        public int ID { get => Id; }
 
         /// <summary>
         /// Задает и возвращает имя контакта.
@@ -87,11 +97,11 @@ namespace ContactApp.Model
             get => _phone;
             set
             {
-                if (value.ToCharArray()[0] != 7)
+                if (value.ToCharArray()[1] != 7)
                 {
-                    throw new Exception("Неверно введена первая цифра!");
+                    //throw new Exception("Номер телефона должет соответствовать маске +7***!");
                 }
-                if (value.Length > 11)
+                if (value.Length > 12)
                 {
                     throw new Exception("Недопустимое количество символов!");
                 }
@@ -102,7 +112,7 @@ namespace ContactApp.Model
         /// <summary>
         /// Создает экземпляр кдасса <see cref="Contact">
         /// </summary>
-        public Contact() { }
+        public Contact() { Id = sId++; }
 
         /// <summary>
         /// Создает экземпляр кдасса <see cref="Contact">
@@ -113,11 +123,11 @@ namespace ContactApp.Model
         /// <param name="phone"></param>
         public Contact(string name, string surname, string patrionymic, string phone)
         {
-            Id++;
-            _name = name;
-            _surname = surname;
-            _patronymic = patrionymic;
-            _phone = phone;
+            Id = sId++;
+            Name = name;
+            Surname = surname;
+            Patronymic = patrionymic;
+            Phone = phone;
         }        
     }
 }

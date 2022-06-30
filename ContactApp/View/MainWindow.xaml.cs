@@ -24,7 +24,7 @@ namespace ContactApp
         /// <summary>
         /// Возвращает и задает текущий список заметок пользователя.
         /// </summary>
-        private List<Contact> CurentNotes { get; set; }
+        private List<Contact> CurentContacts { get; set; }
 
         /// <summary>
         /// Объект класса Project.
@@ -34,6 +34,61 @@ namespace ContactApp
         public MainWindow()
         {
             InitializeComponent();
+
+            Project = new Project();
+            Project.Contacts = new List<Contact>();
+        }
+
+        /// <summary>
+        /// Добавляет и очищает заметки из ListBox.
+        /// </summary>
+        private void UpdateListBox()
+        {
+            MainWindowListBox.Items.Clear();
+
+            for (int i = 0; i < Project.Contacts.Count; i++)
+            {
+                MainWindowListBox.Items.Insert(i, Project.Contacts.ToArray()[i].Surname + " " +
+                Project.Contacts.ToArray()[i].Name + " " + Project.Contacts.ToArray()[i].Patronymic);
+            }
+        }
+
+        /// <summary>
+        /// Удаляет заметку из списка.
+        /// </summary>
+        /// <param name="index">Индекс удаляемого из списка элемента</param>
+        private void RemoveContact(int index)
+        {
+            Project.Contacts.RemoveAt(index);
+        }
+
+        /// <summary>
+        /// Очищает правую панель.
+        /// </summary>
+        private void ClearSelectedContact()
+        {
+            MainWindowIDTextBox.Text = "";
+            MainWindowSurnameTextBox.Text = "";
+            MainWindowNameTextBox.Text = "";
+            MainWindowPatronymicTextBox.Text = "";
+            MainWindowPhoneTextBox.Text = "";
+        }
+
+        /// <summary>
+        /// Заполняет данные на правой панели главного окна.
+        /// </summary>
+        ///  /// <param name="index">Индекс выделенного элемента</param>
+        private void UpdateSelectedContact(int index)
+        {
+            if (MainWindowListBox.SelectedIndex == -1)
+            {
+                ClearSelectedContact();
+            }
+            MainWindowIDTextBox.Text = Project.Contacts.ToArray()[index].ID.ToString();
+            MainWindowSurnameTextBox.Text = Project.Contacts.ToArray()[index].Surname;
+            MainWindowNameTextBox.Text = Project.Contacts.ToArray()[index].Name;
+            MainWindowPatronymicTextBox.Text = Project.Contacts.ToArray()[index].Patronymic;
+            MainWindowPhoneTextBox.Text = Project.Contacts.ToArray()[index].Phone;
         }
 
         /// <summary>
@@ -41,7 +96,8 @@ namespace ContactApp
         /// </summary>
         private void AddContact()
         {
-            
+            Contact contact = new Contact("Никита", "Марценковский", "Олегович", "+79529106702");
+            Project.Contacts.Add(contact);
         }
 
         /// <summary>
@@ -50,7 +106,6 @@ namespace ContactApp
         private void EditContact()
         {
             MessageBox.Show("Worked");
-
         }
 
         /// <summary>
@@ -58,13 +113,47 @@ namespace ContactApp
         /// </summary>
         private void RemoveContact()
         {
-            MessageBox.Show("Worked");
+            if (MainWindowListBox.SelectedIndex == -1)
+            {
+                return;
+            }
 
+            var result = MessageBox.Show("Вы действительно хотите удалить контакт " +
+                MainWindowListBox.SelectedItem.ToString() + "?", "", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                RemoveContact(MainWindowListBox.SelectedIndex);
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            UpdateListBox();
+
+        }
+
+        private void MainWindowListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateSelectedContact(MainWindowListBox.SelectedIndex);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddContact();
+            UpdateListBox();
+
+            var contactWindow = new ContactWindow();
+            var result = contactWindow.ShowDialog();
+
+            if (result == true)
+            {
+                MessageBox.Show("Контакт сохранен");
+            }
+            else
+            {
+                MessageBox.Show("Контакт не будет сохранен!");
+            }
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)

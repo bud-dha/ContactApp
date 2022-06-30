@@ -22,9 +22,14 @@ namespace ContactApp
             InitializeComponent();
         }
 
-        private void PhoneTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PhoneTextBox.Text = "";
+            DialogResult = true;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

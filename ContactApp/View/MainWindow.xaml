@@ -19,7 +19,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Name="MainWindowListBox" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+        <ListBox Name="MainWindowListBox" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="MainWindowListBox_SelectionChanged"/>
         <GridSplitter Grid.Column="2" Grid.RowSpan="4" ShowsPreview="True" Width="7" 
              HorizontalAlignment="Center" VerticalAlignment="Stretch">
         </GridSplitter>
@@ -60,23 +60,23 @@
         </Menu>
         <Label Content="ID:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
                Margin="54,1,0,0" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox Name="IDTextBox" Grid.Row="2" Grid.Column="3" Margin="82,2,10,0"  
+        <TextBox x:Name="MainWindowIDTextBox" Grid.Row="2" Grid.Column="3" Margin="82,2,10,0"  
                  Height="21" VerticalAlignment="Top" />
         <Label Content="Surname:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
                Margin="16,26,0,0" Width="66" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox Name="SurnameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,28,10,0" 
+        <TextBox x:Name="MainWindowSurnameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,28,10,0" 
                  Height="21" VerticalAlignment="Top" />
         <Label Content="Name:" Grid.Row="2" FontSize="13" FontFamily="Arial" 
                Margin="34,50,0,0" Width="48" Grid.Column="3" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox Name="NameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,53,10,0"
+        <TextBox x:Name="MainWindowNameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,53,10,0"
                  Height="21" VerticalAlignment="Top" />
         <Label Content="Phone:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
                Margin="30,105,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox Name="PhoneTextBox" Grid.Column="3" Grid.Row="2" Margin="82,107,10,0" Text="+7-***-***-**-**"
+        <TextBox x:Name="MainWindowPhoneTextBox" Grid.Column="3" Grid.Row="2" Margin="82,107,10,0" Text="+7-***-***-**-**"
                  Height="21" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" FontStyle="Italic" TextDecorations="{x:Null}" FontWeight="Normal" />
         <Label Content="Patronymic:" Grid.Row="2"  Grid.Column="3" FontSize="13" FontFamily="Arial" 
                Margin="3,76,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox Name="PatronymicTextBox" Grid.Column="3" Grid.Row="2" Margin="82,80,10,0"  
+        <TextBox x:Name="MainWindowPatronymicTextBox" Grid.Column="3" Grid.Row="2" Margin="82,80,10,0"  
                  Height="21" VerticalAlignment="Top" />
         <Label Content="Выбранный контакт" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Width="230" FontFamily="Arial" FontSize="22"/>
     </Grid>
