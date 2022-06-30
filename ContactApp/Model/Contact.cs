@@ -101,7 +101,7 @@ namespace ContactApp.Model
                 {
                     //throw new Exception("Номер телефона должет соответствовать маске +7***!");
                 }
-                if (value.Length > 12)
+                if (value.Length != 12)
                 {
                     throw new Exception("Недопустимое количество символов!");
                 }
