@@ -96,8 +96,13 @@ namespace ContactApp
         /// </summary>
         private void AddContact()
         {
-            Contact contact = new Contact("Никита", "Марценковский", "Олегович", "+79529106702");
-            Project.Contacts.Add(contact);
+            var contactWindow = new ContactWindow();
+            var result = contactWindow.ShowDialog();
+            if (result == true)
+            {
+                Project.Contacts.Add(contactWindow.Contact);
+            }
+            UpdateListBox();
         }
 
         /// <summary>
@@ -105,7 +110,21 @@ namespace ContactApp
         /// </summary>
         private void EditContact()
         {
-            MessageBox.Show("Worked");
+            var selectedIndex = MainWindowListBox.SelectedIndex;
+            var selectedContact = Project.Contacts[selectedIndex];
+            var contactWindow = new ContactWindow();
+            contactWindow.Contact = selectedContact;
+            var result = contactWindow.ShowDialog();
+
+            if (result == true)
+            {
+                var updatedData = contactWindow.Contact;
+
+                MainWindowListBox.Items.RemoveAt(selectedIndex);
+                Project.Contacts.RemoveAt(selectedIndex);
+                Project.Contacts.Insert(selectedIndex, updatedData);
+                UpdateListBox();
+            }
         }
 
         /// <summary>

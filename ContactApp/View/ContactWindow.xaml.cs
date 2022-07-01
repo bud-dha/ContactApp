@@ -34,20 +34,25 @@ namespace ContactApp
         private string _titleError;
 
         /// <summary>
-        /// Объект класса contact.
+        /// Свойство для пердачи данных контакта.
         /// </summary>
-        private Contact _contact;  
+        private Contact _contact = new Contact();
+
+        /// <summary>
+        /// Возвращает и задает свойство для передачи двнных контакта.
+        /// </summary>
+        public Contact Contact
+        {
+            get => _contact;
+            set {
+                _contact = value;
+                UpdateContact();
+            }
+        }
 
         public ContactWindow()
         {
             InitializeComponent();            
-
-            _contact = new Contact();
-            _contact.Name = "Anton";
-            _contact.Surname = "Chehov";
-            _contact.Patronymic = "Pavlovich";
-            _contact.Phone = "+71234131310";
-
             UpdateWindow();
         }
 
@@ -65,7 +70,7 @@ namespace ContactApp
         /// <summary>
         /// Обновляет данные в объекте _note.
         /// </summary>
-        private void UpdateNote()
+        private void UpdateContact()
         {
             _contact.Surname = ContactWindowSurnameTextBox.Text;
             _contact.Name = ContactWindowNameTextBox.Text;
@@ -76,7 +81,7 @@ namespace ContactApp
         /// <summary>
         /// Проверяет форму на наличие ошибок.
         /// </summary>
-        private bool CheckFormOnErrors()
+        private bool CheckOnErrors()
         {
             if (_titleError.Length > 1)
             {
@@ -85,7 +90,6 @@ namespace ContactApp
             }
             return true;
         }
-
 
         private void ContactWindowSurnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -150,8 +154,8 @@ namespace ContactApp
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
-            CheckFormOnErrors();
-            UpdateNote();
+            CheckOnErrors();
+            UpdateContact();
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
