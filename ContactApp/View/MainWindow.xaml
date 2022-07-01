@@ -96,7 +96,7 @@
                 <ImageBrush ImageSource="/View/icons8-remove-48.png"/>
             </Button.Background>
         </Button>
-        <TextBox Name="FindTextBox" Grid.Column="1" Grid.Row="1" Margin="40,0,0,9" Height="21" VerticalAlignment="Bottom" />
+        <TextBox Name="FindTextBox" Grid.Column="1" Grid.Row="1" Margin="40,0,0,9" Height="21" VerticalAlignment="Bottom" KeyDown="FindTextBox_KeyDown" KeyUp="FindTextBox_KeyUp" />
         <Menu Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Exit" Click="MenuItemExit_Click"/>

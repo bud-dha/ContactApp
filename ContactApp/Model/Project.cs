@@ -28,5 +28,18 @@ namespace ContactApp.Model
             }
             return Contacts;
         }
+
+        /// <summary>
+        /// Возвращает список отсортированный по алфавиту.
+        /// </summary>
+        /// <returns></returns>
+        public List<Contact> ContactsByAlfabet()
+        {
+            if (Contacts.Count != 0)
+            {
+                return Contacts.OrderBy(t => t.Surname).ToList();
+            }
+            return Contacts;
+        }
     }
 }

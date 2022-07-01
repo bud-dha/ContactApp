@@ -37,6 +37,8 @@ namespace ContactApp
 
             Project = new Project();
             Project.Contacts = new List<Contact>();
+            CurentContacts = new List<Contact>();
+            CurentContacts = Project.Contacts;
         }
 
         /// <summary>
@@ -45,6 +47,7 @@ namespace ContactApp
         private void UpdateListBox()
         {
             MainWindowListBox.Items.Clear();
+            Project.Contacts = Project.ContactsByAlfabet();           
 
             for (int i = 0; i < Project.Contacts.Count; i++)
             {
@@ -202,7 +205,7 @@ namespace ContactApp
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
-            Close();       
+            Close();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -218,5 +221,24 @@ namespace ContactApp
             }
         }
 
+        private void FindTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                CurentContacts = Project.FindContacts(FindTextBox.Text);
+                for (int i = 0; i < FindTextBox.Text.Length; i++)
+                {
+                    MainWindowListBox.Items.Add(Project.Contacts.ToArray()[i].Surname + Project.Contacts.ToArray()[i].Name + Project.Contacts.ToArray()[i].Patronymic);
+                }
+            }
+        }
+
+        private void FindTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (FindTextBox.Text.Length == 0)
+            {
+                MainWindowListBox.Items.Clear();
+            }
+        }
     }
 }
