@@ -45,15 +45,14 @@ namespace ContactApp
         {
             get => _contact;
             set {
-                _contact = value;
-                UpdateContact();
+                _contact = value;                
+                UpdateWindow();               
             }
         }
 
         public ContactWindow()
         {
-            InitializeComponent();            
-            UpdateWindow();
+            InitializeComponent();                        
         }
 
         /// <summary>

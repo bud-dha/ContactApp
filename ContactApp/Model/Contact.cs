@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ContactApp.Model
 {   
@@ -49,11 +50,16 @@ namespace ContactApp.Model
             get => _name;
             set 
             {
-                if (value.Length < 2 || value.Length > 50)
+                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
+
+                if (regexObj.IsMatch(value) || value.Length > 50)
                 {
-                    throw new Exception("Недопустимое количество символов!");                
+                    _phone = value;
                 }
-                _name = value;
+                else
+                {
+                    throw new Exception("Имя должно начинаться с большой буквы");
+                }
             }
         }
 
@@ -65,11 +71,16 @@ namespace ContactApp.Model
             get => _surname;
             set
             {
-                if (value.Length < 2 || value.Length > 50)
+                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
+
+                if (regexObj.IsMatch(value) || value.Length > 50)
                 {
-                    throw new Exception("Недопустимое количество символов!");
+                    _phone = value;
                 }
-                _surname = value;
+                else
+                {
+                    throw new Exception("Фамилия должна начинаться с большой буквы");
+                }
             }
         }
 
@@ -81,11 +92,16 @@ namespace ContactApp.Model
             get => _patronymic;
             set
             {
-                if (value.Length < 2 || value.Length > 50)
+                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
+
+                if (regexObj.IsMatch(value) || value.Length > 50)
                 {
-                    throw new Exception("Недопустимое количество символов!");
+                    _phone = value;
                 }
-                _patronymic = value;
+                else
+                {
+                    throw new Exception("Отчество должно начинаться с большой буквы");
+                }
             }
         }
 
@@ -97,22 +113,26 @@ namespace ContactApp.Model
             get => _phone;
             set
             {
-                if (value.ToCharArray()[1] != 7)
+                Regex regexObj = new Regex(@"[+][7][9][0-9]{9}");
+
+                if (regexObj.IsMatch(value))
                 {
-                    //throw new Exception("Номер телефона должет соответствовать маске +7***!");
+                    _phone = value;
                 }
-                if (value.Length != 12)
+                else
                 {
-                    throw new Exception("Недопустимое количество символов!");
-                }
-                _phone = value;
+                    throw new Exception("Номер телефона должен соответствовать маске +79*********");
+                }                
             }
         }
 
-        /// <summary>
-        /// Создает экземпляр кдасса <see cref="Contact">
-        /// </summary>
-        public Contact() { Id = sId++; }
+        public Contact() 
+        {
+            Name = "Имя";
+            Surname = "Фамилия";
+            Patronymic = "Отчество";
+            Phone = "+79999999099";
+        }
 
         /// <summary>
         /// Создает экземпляр кдасса <see cref="Contact">

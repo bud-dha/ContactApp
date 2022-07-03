@@ -47,12 +47,12 @@ namespace ContactApp
         private void UpdateListBox()
         {
             MainWindowListBox.Items.Clear();
-            Project.Contacts = Project.ContactsByAlfabet();           
+            CurentContacts = Project.ContactsByAlfabet();           
 
             for (int i = 0; i < Project.Contacts.Count; i++)
             {
-                MainWindowListBox.Items.Insert(i, Project.Contacts.ToArray()[i].Surname + " " +
-                Project.Contacts.ToArray()[i].Name + " " + Project.Contacts.ToArray()[i].Patronymic);
+                MainWindowListBox.Items.Insert(i, CurentContacts.ToArray()[i].Surname + " " +
+                Project.Contacts.ToArray()[i].Name + " " + CurentContacts.ToArray()[i].Patronymic);
             }
         }
 
@@ -87,11 +87,14 @@ namespace ContactApp
             {
                 ClearSelectedContact();
             }
-            MainWindowIDTextBox.Text = Project.Contacts.ToArray()[index].ID.ToString();
-            MainWindowSurnameTextBox.Text = Project.Contacts.ToArray()[index].Surname;
-            MainWindowNameTextBox.Text = Project.Contacts.ToArray()[index].Name;
-            MainWindowPatronymicTextBox.Text = Project.Contacts.ToArray()[index].Patronymic;
-            MainWindowPhoneTextBox.Text = Project.Contacts.ToArray()[index].Phone;
+            else
+            {
+                MainWindowIDTextBox.Text = CurentContacts.ToArray()[index].ID.ToString();
+                MainWindowSurnameTextBox.Text = CurentContacts.ToArray()[index].Surname;
+                MainWindowNameTextBox.Text = CurentContacts.ToArray()[index].Name;
+                MainWindowPatronymicTextBox.Text = CurentContacts.ToArray()[index].Patronymic;
+                MainWindowPhoneTextBox.Text = CurentContacts.ToArray()[index].Phone;
+            }
         }
 
         /// <summary>
@@ -113,10 +116,16 @@ namespace ContactApp
         /// </summary>
         private void EditContact()
         {
-            var selectedIndex = MainWindowListBox.SelectedIndex;
-            var selectedContact = Project.Contacts[selectedIndex];
+            if (MainWindowListBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Необходимо выбрать контакт");
+                return;
+            }
+
+            var selectedIndex = MainWindowListBox.SelectedIndex;            
+            var selectedContact = CurentContacts[selectedIndex];            
             var contactWindow = new ContactWindow();
-            contactWindow.Contact = selectedContact;
+            contactWindow.Contact = selectedContact;            
             var result = contactWindow.ShowDialog();
 
             if (result == true)
@@ -124,8 +133,9 @@ namespace ContactApp
                 var updatedData = contactWindow.Contact;
 
                 MainWindowListBox.Items.RemoveAt(selectedIndex);
-                Project.Contacts.RemoveAt(selectedIndex);
-                Project.Contacts.Insert(selectedIndex, updatedData);
+                CurentContacts.RemoveAt(selectedIndex);
+                CurentContacts.Insert(selectedIndex, updatedData);
+                Project.Contacts[Project.Contacts.IndexOf(CurentContacts[selectedIndex])] = CurentContacts[selectedIndex];
                 UpdateListBox();
             }
         }
@@ -137,11 +147,13 @@ namespace ContactApp
         {
             if (MainWindowListBox.SelectedIndex == -1)
             {
+                MessageBox.Show("Необходимо выбрать контакт");
                 return;
             }
 
             var result = MessageBox.Show("Вы действительно хотите удалить контакт " +
                 MainWindowListBox.SelectedItem.ToString() + "?", "", MessageBoxButton.YesNo);
+
             if (result == MessageBoxResult.Yes)
             {
                 RemoveContact(MainWindowListBox.SelectedIndex);
@@ -152,7 +164,6 @@ namespace ContactApp
             }
 
             UpdateListBox();
-
         }
 
         private void MainWindowListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -163,19 +174,6 @@ namespace ContactApp
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddContact();
-            UpdateListBox();
-
-            var contactWindow = new ContactWindow();
-            var result = contactWindow.ShowDialog();
-
-            if (result == true)
-            {
-                MessageBox.Show("Контакт сохранен");
-            }
-            else
-            {
-                MessageBox.Show("Контакт не будет сохранен!");
-            }
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -218,26 +216,6 @@ namespace ContactApp
             else
             {
                 e.Cancel = true;
-            }
-        }
-
-        private void FindTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                CurentContacts = Project.FindContacts(FindTextBox.Text);
-                for (int i = 0; i < FindTextBox.Text.Length; i++)
-                {
-                    MainWindowListBox.Items.Add(Project.Contacts.ToArray()[i].Surname + Project.Contacts.ToArray()[i].Name + Project.Contacts.ToArray()[i].Patronymic);
-                }
-            }
-        }
-
-        private void FindTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (FindTextBox.Text.Length == 0)
-            {
-                MainWindowListBox.Items.Clear();
             }
         }
     }

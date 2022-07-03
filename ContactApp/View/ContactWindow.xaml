@@ -45,26 +45,26 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label Content="Surname:" FontSize="13" FontFamily="Arial" 
-               Margin="16,36,0,0" Width="66" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Фамилия:" FontSize="13" FontFamily="Arial" 
+               Margin="13,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" 
                  Height="21" VerticalAlignment="Top" TextChanged="ContactWindowSurnameTextBox_TextChanged" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" FontFamily="Arial" FontSize="13" />
-        <Label Content="Name:"  FontSize="13" FontFamily="Arial" 
-               Margin="34,62,0,0" Width="48"  Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Имя:"  FontSize="13" FontFamily="Arial" 
+               Margin="43,62,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" 
                  Height="21" VerticalAlignment="Top" TextChanged="ContactWindowNameTextBox_TextChanged" FontFamily="Arial" FontSize="13" />
-        <Label Content="Phone:"  FontSize="13" FontFamily="Arial" 
-               Margin="30,115,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <Label Content="Телефон:"  FontSize="13" FontFamily="Arial" 
+               Margin="14,115,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
         <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" 
                  Height="21" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" FontStyle="Italic" TextChanged="ContactWindowPhoneTextBox_TextChanged" />
-        <Label Content="Patronymic:" FontSize="13" FontFamily="Arial" 
-               Margin="3,88,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <Label Content="Отчество:" FontSize="13" FontFamily="Arial" 
+               Margin="12,88,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
         <TextBox x:Name="ContactWindowPatronymicTextBox"  Margin="82,90,10,0"
                  Height="21" VerticalAlignment="Top" TextChanged="ContactWindowPatronymicTextBox_TextChanged" FontFamily="Arial" FontSize="13" />
-        <Button Content="Ok" Margin="0,0,75,13"
+        <Button Content="Принять" Margin="0,0,75,13"
                 Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                 Width="60" Click="ButtonOk_Click"/>
-        <Button Content="Cancel" Margin="0,0,10,13" HorizontalAlignment="Right" 
+        <Button Content="Закрыть" Margin="0,0,10,13" HorizontalAlignment="Right" 
                 Width="60" Height="30" VerticalAlignment="Bottom" Click="ButtonCancel_Click"/>
     </Grid>
 </Window>

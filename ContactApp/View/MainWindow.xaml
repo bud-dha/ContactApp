@@ -57,10 +57,10 @@
     </Window.Resources>
     <Grid Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"  />
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="17*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="18.871"  />
+            <RowDefinition Height="38.03"/>
+            <RowDefinition/>
+            <RowDefinition Height="56.886"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" MinWidth="10"/>
@@ -72,9 +72,8 @@
         <GridSplitter Grid.Column="2" Grid.RowSpan="4" ShowsPreview="True" Width="7" 
              HorizontalAlignment="Center" VerticalAlignment="Stretch">
         </GridSplitter>
-        <Label Content="Find:" Grid.Row="1" FontSize="13" FontFamily="Arial" 
-               Margin="0,0,0,6" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Bottom" 
-               Grid.Column="1"/>
+        <Label Content="Контакты" FontSize="22" FontFamily="Arial" HorizontalAlignment="Center" Width="Auto" 
+               Grid.Column="1" VerticalAlignment="Top" Height="33" Grid.Row="1"/>
         <Button Name="AddButton" Grid.Column="1" Grid.Row="3" Height="30" Width="30" 
                 Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 BorderThickness="0,0,0,0" Click="AddButton_Click">
@@ -96,37 +95,36 @@
                 <ImageBrush ImageSource="/View/icons8-remove-48.png"/>
             </Button.Background>
         </Button>
-        <TextBox Name="FindTextBox" Grid.Column="1" Grid.Row="1" Margin="40,0,0,9" Height="21" VerticalAlignment="Bottom" KeyDown="FindTextBox_KeyDown" KeyUp="FindTextBox_KeyUp" />
         <Menu Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Top">
-            <MenuItem Header="File">
-                <MenuItem Header="Exit" Click="MenuItemExit_Click"/>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход" Click="MenuItemExit_Click"/>
             </MenuItem>
-            <MenuItem Header="Edit">
-                <MenuItem Header="Add Contact" Click="MenuItemAdd_Click"/>
-                <MenuItem Header="Edit Contact" Click="MenuItemEdit_Click"/>
-                <MenuItem Header="Remove Contact" Click="MenuItemRemove_Click"/>
+            <MenuItem Header="Изменить">
+                <MenuItem Header="Добавить контакт" Click="MenuItemAdd_Click"/>
+                <MenuItem Header="Изменить контакт" Click="MenuItemEdit_Click"/>
+                <MenuItem Header="Удалить контакт" Click="MenuItemRemove_Click"/>
             </MenuItem>
         </Menu>
-        <Label Content="ID:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
-               Margin="54,1,0,0" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="MainWindowIDTextBox" Grid.Row="2" Grid.Column="3" Margin="82,2,10,0"  
+        <Label Content="ID:" Grid.Row="1" Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="55,37,0,0" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="2"/>
+        <TextBox x:Name="MainWindowIDTextBox" Grid.Row="2" Grid.Column="3" Margin="82,0,10,0"  
                  Height="21" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Arial" FontSize="13"/>
-        <Label Content="Surname:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
-               Margin="16,26,0,0" Width="66" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="MainWindowSurnameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,28,10,0" 
+        <Label Content="Фамилия:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="14,24,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="MainWindowSurnameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,26,10,0" 
                  Height="21" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Arial" FontSize="13"/>
-        <Label Content="Name:" Grid.Row="2" FontSize="13" FontFamily="Arial" 
-               Margin="34,50,0,0" Width="48" Grid.Column="3" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="MainWindowNameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,53,10,0"
+        <Label Content="Имя:" Grid.Row="2" FontSize="13" FontFamily="Arial" 
+               Margin="43,48,0,0" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="MainWindowNameTextBox" Grid.Column="3" Grid.Row="2" Margin="82,51,10,0"
                  Height="21" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Arial" FontSize="13"/>
-        <Label Content="Phone:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
-               Margin="30,105,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="MainWindowPhoneTextBox" Grid.Column="3" Grid.Row="2" Margin="82,107,10,0" Text="+7-***-***-**-**"
+        <Label Content="Телефон:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="14,103,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <TextBox x:Name="MainWindowPhoneTextBox" Grid.Column="3" Grid.Row="2" Margin="82,105,10,0" Text="+7-***-***-**-**"
                  Height="21" VerticalAlignment="Top" FontFamily="Arial" FontSize="13"  IsReadOnly="True" />
-        <Label Content="Patronymic:" Grid.Row="2"  Grid.Column="3" FontSize="13" FontFamily="Arial" 
-               Margin="3,76,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="MainWindowPatronymicTextBox" Grid.Column="3" Grid.Row="2" Margin="82,80,10,0"  
+        <Label Content="Отчество:" Grid.Row="2"  Grid.Column="3" FontSize="13" FontFamily="Arial" 
+               Margin="12,74,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox x:Name="MainWindowPatronymicTextBox" Grid.Column="3" Grid.Row="2" Margin="82,78,10,0"  
                  Height="21" VerticalAlignment="Top" IsReadOnly="True" FontFamily="Arial" FontSize="13"/>
-        <Label Content="Выбранный контакт" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" Width="230" FontFamily="Arial" FontSize="22" Margin="0,0,0,3"/>
+        <Label Content="Выбранный контакт" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" Width="230" FontFamily="Arial" FontSize="22" Margin="0,1,0,1"/>
     </Grid>
 </Window>
