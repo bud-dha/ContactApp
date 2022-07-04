@@ -5,12 +5,13 @@ using System.Text.RegularExpressions;
 
 namespace ContactApp.Model
 {   
+   [Serializable]
    public class Contact
     {
         /// <summary>
         /// Начальное значение Id.
         /// </summary>
-        private static int sId = 0;
+        private static int sId = 1;
 
         /// <summary>
         /// Id контакта.
@@ -52,9 +53,9 @@ namespace ContactApp.Model
             {
                 Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
 
-                if (regexObj.IsMatch(value) || value.Length > 50)
+                if (regexObj.IsMatch(value) & value.Length < 50)
                 {
-                    _phone = value;
+                    _name = value;
                 }
                 else
                 {
@@ -73,9 +74,9 @@ namespace ContactApp.Model
             {
                 Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
 
-                if (regexObj.IsMatch(value) || value.Length > 50)
+                if (regexObj.IsMatch(value) & value.Length < 50)
                 {
-                    _phone = value;
+                    _surname = value;
                 }
                 else
                 {
@@ -94,9 +95,9 @@ namespace ContactApp.Model
             {
                 Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
 
-                if (regexObj.IsMatch(value) || value.Length > 50)
+                if (regexObj.IsMatch(value) & value.Length < 50)
                 {
-                    _phone = value;
+                    _patronymic = value;
                 }
                 else
                 {
@@ -128,6 +129,7 @@ namespace ContactApp.Model
 
         public Contact() 
         {
+            Id = sId++;
             Name = "Имя";
             Surname = "Фамилия";
             Patronymic = "Отчество";

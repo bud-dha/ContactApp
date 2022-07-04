@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ContactApp.Model
 {
+    [Serializable]
     /// <summary>
     /// Хранит все пользовательские данные текущей сессии.
     /// </summary>
-    class Project
+    public class Project
     {
         /// <summary>
         /// Возвращает и задает список контактов пользователя.

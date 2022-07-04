@@ -32,13 +32,20 @@ namespace ContactApp
         private Project Project { get; set; }
 
         public MainWindow()
-        {
-            InitializeComponent();
+        {            
+            Project = ProjectSerializer.LoadFromFile();
+            if (Project == null)
+            {
+                Project = new Project();
+                Project.Contacts = new List<Contact>();
+            }
 
-            Project = new Project();
-            Project.Contacts = new List<Contact>();
+            InitializeComponent();
+            
             CurentContacts = new List<Contact>();
             CurentContacts = Project.Contacts;
+
+            UpdateListBox();
         }
 
         /// <summary>
@@ -52,7 +59,7 @@ namespace ContactApp
             for (int i = 0; i < Project.Contacts.Count; i++)
             {
                 MainWindowListBox.Items.Insert(i, CurentContacts.ToArray()[i].Surname + " " +
-                Project.Contacts.ToArray()[i].Name + " " + CurentContacts.ToArray()[i].Patronymic);
+                CurentContacts.ToArray()[i].Name + " " + CurentContacts.ToArray()[i].Patronymic);
             }
         }
 
@@ -107,8 +114,10 @@ namespace ContactApp
             if (result == true)
             {
                 Project.Contacts.Add(contactWindow.Contact);
+                ProjectSerializer.SaveToFile(Project);
             }
             UpdateListBox();
+            ProjectSerializer.SaveToFile(Project);
         }
 
         /// <summary>
@@ -137,6 +146,7 @@ namespace ContactApp
                 CurentContacts.Insert(selectedIndex, updatedData);
                 Project.Contacts[Project.Contacts.IndexOf(CurentContacts[selectedIndex])] = CurentContacts[selectedIndex];
                 UpdateListBox();
+                ProjectSerializer.SaveToFile(Project);
             }
         }
 
@@ -164,6 +174,7 @@ namespace ContactApp
             }
 
             UpdateListBox();
+            ProjectSerializer.SaveToFile(Project);
         }
 
         private void MainWindowListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -203,6 +214,7 @@ namespace ContactApp
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
+            ProjectSerializer.SaveToFile(Project);
             Close();
         }
 
@@ -215,6 +227,7 @@ namespace ContactApp
             }
             else
             {
+                ProjectSerializer.SaveToFile(Project);
                 e.Cancel = true;
             }
         }
