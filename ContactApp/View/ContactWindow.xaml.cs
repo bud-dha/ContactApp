@@ -70,7 +70,7 @@ namespace ContactApp
         /// Обновляет данные в объекте _note.
         /// </summary>
         private void UpdateContact()
-        {
+        {            
             _contact.Surname = ContactWindowSurnameTextBox.Text;
             _contact.Name = ContactWindowNameTextBox.Text;
             _contact.Patronymic = ContactWindowPatronymicTextBox.Text;

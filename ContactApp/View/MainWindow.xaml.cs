@@ -21,10 +21,7 @@ namespace ContactApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Возвращает и задает текущий список заметок пользователя.
-        /// </summary>
-        private List<Contact> CurentContacts { get; set; }
+        private Project CurentContacts;
 
         /// <summary>
         /// Объект класса Project.
@@ -34,6 +31,7 @@ namespace ContactApp
         public MainWindow()
         {            
             Project = ProjectSerializer.LoadFromFile();
+
             if (Project == null)
             {
                 Project = new Project();
@@ -41,9 +39,6 @@ namespace ContactApp
             }
 
             InitializeComponent();
-            
-            CurentContacts = new List<Contact>();
-            CurentContacts = Project.Contacts;
 
             UpdateListBox();
         }
@@ -54,22 +49,26 @@ namespace ContactApp
         private void UpdateListBox()
         {
             MainWindowListBox.Items.Clear();
-            CurentContacts = Project.ContactsByAlfabet();           
+            Project.Contacts = Project.ContactsByAlfabet();           
 
             for (int i = 0; i < Project.Contacts.Count; i++)
             {
-                MainWindowListBox.Items.Insert(i, CurentContacts.ToArray()[i].Surname + " " +
-                CurentContacts.ToArray()[i].Name + " " + CurentContacts.ToArray()[i].Patronymic);
+                MainWindowListBox.Items.Insert(i, Project.Contacts.ToArray()[i].Surname + " " +
+                Project.Contacts.ToArray()[i].Name + " " + Project.Contacts.ToArray()[i].Patronymic);
             }
         }
 
         /// <summary>
-        /// Удаляет заметку из списка.
+        /// Удаляет контакт из списка.
         /// </summary>
         /// <param name="index">Индекс удаляемого из списка элемента</param>
-        private void RemoveContact(int index)
+        private void RemoveContactFromListBox(int index)
         {
             Project.Contacts.RemoveAt(index);
+            if (MainWindowListBox.SelectedIndex == -1)
+            {
+                MainWindowListBox.SelectedIndex = index;
+            }            
         }
 
         /// <summary>
@@ -96,11 +95,11 @@ namespace ContactApp
             }
             else
             {
-                MainWindowIDTextBox.Text = CurentContacts.ToArray()[index].ID.ToString();
-                MainWindowSurnameTextBox.Text = CurentContacts.ToArray()[index].Surname;
-                MainWindowNameTextBox.Text = CurentContacts.ToArray()[index].Name;
-                MainWindowPatronymicTextBox.Text = CurentContacts.ToArray()[index].Patronymic;
-                MainWindowPhoneTextBox.Text = CurentContacts.ToArray()[index].Phone;
+                MainWindowIDTextBox.Text = Project.Contacts.ToArray()[index].ID.ToString();
+                MainWindowSurnameTextBox.Text = Project.Contacts.ToArray()[index].Surname;
+                MainWindowNameTextBox.Text = Project.Contacts.ToArray()[index].Name;
+                MainWindowPatronymicTextBox.Text = Project.Contacts.ToArray()[index].Patronymic;
+                MainWindowPhoneTextBox.Text = Project.Contacts.ToArray()[index].Phone;
             }
         }
 
@@ -117,7 +116,6 @@ namespace ContactApp
                 ProjectSerializer.SaveToFile(Project);
             }
             UpdateListBox();
-            ProjectSerializer.SaveToFile(Project);
         }
 
         /// <summary>
@@ -131,8 +129,8 @@ namespace ContactApp
                 return;
             }
 
-            var selectedIndex = MainWindowListBox.SelectedIndex;            
-            var selectedContact = CurentContacts[selectedIndex];            
+            var selectedIndex = MainWindowListBox.SelectedIndex;
+            var selectedContact = Project.Contacts[selectedIndex];
             var contactWindow = new ContactWindow();
             contactWindow.Contact = selectedContact;            
             var result = contactWindow.ShowDialog();
@@ -142,11 +140,10 @@ namespace ContactApp
                 var updatedData = contactWindow.Contact;
 
                 MainWindowListBox.Items.RemoveAt(selectedIndex);
-                CurentContacts.RemoveAt(selectedIndex);
-                CurentContacts.Insert(selectedIndex, updatedData);
-                Project.Contacts[Project.Contacts.IndexOf(CurentContacts[selectedIndex])] = CurentContacts[selectedIndex];
+                Project.Contacts.RemoveAt(selectedIndex);
+                Project.Contacts.Insert(selectedIndex, updatedData);
+                Project.Contacts[Project.Contacts.IndexOf(Project.Contacts[selectedIndex])] = Project.Contacts[selectedIndex];
                 UpdateListBox();
-                ProjectSerializer.SaveToFile(Project);
             }
         }
 
@@ -166,7 +163,8 @@ namespace ContactApp
 
             if (result == MessageBoxResult.Yes)
             {
-                RemoveContact(MainWindowListBox.SelectedIndex);
+                RemoveContactFromListBox(MainWindowListBox.SelectedIndex);
+                ProjectSerializer.CleanFile(Project);
             }
             else if (result == MessageBoxResult.No)
             {
@@ -174,7 +172,6 @@ namespace ContactApp
             }
 
             UpdateListBox();
-            ProjectSerializer.SaveToFile(Project);
         }
 
         private void MainWindowListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -214,6 +211,7 @@ namespace ContactApp
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
+            Project.Contacts = Project.ContactsById();
             ProjectSerializer.SaveToFile(Project);
             Close();
         }
@@ -223,11 +221,12 @@ namespace ContactApp
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
+                Project.Contacts = Project.ContactsById();
+                ProjectSerializer.SaveToFile(Project);
                 e.Cancel = false;
             }
             else
-            {
-                ProjectSerializer.SaveToFile(Project);
+            {              
                 e.Cancel = true;
             }
         }

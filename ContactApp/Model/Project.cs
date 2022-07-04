@@ -20,12 +20,11 @@ namespace ContactApp.Model
         /// <summary>
         /// Возвращает список по ключевому слову.
         /// </summary>
-        public List<Contact> FindContacts(string text)
+        public List<Contact> ContactsById()
         {
             if (Contacts.Count != 0)
             {
-                return Contacts.Where(t => t.Name == text || t.Surname == text || 
-                t.Patronymic == text || t.Phone == text).ToList();
+                return Contacts.OrderBy(t => t.ID).ToList();
             }
             return Contacts;
         }

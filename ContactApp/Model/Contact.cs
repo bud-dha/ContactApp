@@ -16,7 +16,7 @@ namespace ContactApp.Model
         /// <summary>
         /// Id контакта.
         /// </summary>
-        private readonly int Id;
+        private int Id;
 
         /// <summary>
         /// Имя контакта.
@@ -72,7 +72,7 @@ namespace ContactApp.Model
             get => _surname;
             set
             {
-                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
+                Regex regexObj = new Regex(@"^[А-ЯЁ]{1}[а-яё]");
 
                 if (regexObj.IsMatch(value) & value.Length < 50)
                 {
@@ -116,7 +116,7 @@ namespace ContactApp.Model
             {
                 Regex regexObj = new Regex(@"[+][7][9][0-9]{9}");
 
-                if (regexObj.IsMatch(value))
+                if (regexObj.IsMatch(value) & value.Length == 12)
                 {
                     _phone = value;
                 }
@@ -135,21 +135,5 @@ namespace ContactApp.Model
             Patronymic = "Отчество";
             Phone = "+79999999099";
         }
-
-        /// <summary>
-        /// Создает экземпляр кдасса <see cref="Contact">
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="surname"></param>
-        /// <param name="patrionymic"></param>
-        /// <param name="phone"></param>
-        public Contact(string name, string surname, string patrionymic, string phone)
-        {
-            Id = sId++;
-            Name = name;
-            Surname = surname;
-            Patronymic = patrionymic;
-            Phone = phone;
-        }        
     }
 }

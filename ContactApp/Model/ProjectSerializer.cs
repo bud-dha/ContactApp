@@ -19,7 +19,7 @@ namespace ContactApp.Model
 
         
         /// <summary>
-        /// 
+        /// Сохраняет данные в файл.
         /// </summary>
         /// <param name="project"></param>
         public static void SaveToFile(Project project)
@@ -31,10 +31,27 @@ namespace ContactApp.Model
             }
         }
 
+        /// <summary>
+        /// Удаляет данные из файла.
+        /// </summary>
+        /// <param name="project"></param>
+        public static void CleanFile(Project project)
+        {
+            XmlSerializer xml = new XmlSerializer(typeof(Project));
+            using (FileStream fs = new FileStream(FileName, FileMode.Truncate))
+            {
+                xml.Serialize(fs, project);
+            }
+        }
+
+        /// <summary>
+        /// Выгружает данные из файла.
+        /// </summary>
+        /// <returns></returns>
         public static Project LoadFromFile()
         {
             XmlSerializer xml = new XmlSerializer(typeof(Project));
-            using (FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(FileName, FileMode.Open))
             {
                 Project project = (Project)xml.Deserialize(fs);
                 return project;
