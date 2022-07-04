@@ -21,15 +21,13 @@ namespace ContactApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Project CurentContacts;
-
         /// <summary>
         /// Объект класса Project.
         /// </summary>
         private Project Project { get; set; }
 
         public MainWindow()
-        {            
+        {
             Project = ProjectSerializer.LoadFromFile();
 
             if (Project == null)
@@ -68,7 +66,7 @@ namespace ContactApp
             if (MainWindowListBox.SelectedIndex == -1)
             {
                 MainWindowListBox.SelectedIndex = index;
-            }            
+            }
         }
 
         /// <summary>
@@ -226,7 +224,7 @@ namespace ContactApp
                 e.Cancel = false;
             }
             else
-            {              
+            {
                 e.Cancel = true;
             }
         }

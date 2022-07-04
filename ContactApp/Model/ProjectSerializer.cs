@@ -4,7 +4,6 @@ using System.Text;
 using System.Xml.Serialization;
 using System.IO;
 
-
 namespace ContactApp.Model
 {
     /// <summary>
@@ -16,7 +15,6 @@ namespace ContactApp.Model
         /// Название файла сохранения.
         /// </summary>
         public static string FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + "ContactApp.xml";
-
         
         /// <summary>
         /// Сохраняет данные в файл.

@@ -18,7 +18,7 @@ namespace ContactApp.Model
         public List<Contact> Contacts = new List<Contact>();
 
         /// <summary>
-        /// Возвращает список по ключевому слову.
+        /// Возвращает список отсортированный по Id.
         /// </summary>
         public List<Contact> ContactsById()
         {
