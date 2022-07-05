@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactApp"
         mc:Ignorable="d"
-        Title="ContactApp" Height="450" Width="800" MinHeight="450" MinWidth="800" Icon="C:\Users\user\source\repos\ContactApp\ContactApp\View\icons8-contacts-30.png" Closing="Window_Closing" Background="#FFBF1272">
+        Title="ContactApp" Height="450" Width="800" MinHeight="450" MinWidth="800" Icon="C:\Users\user\source\repos\ContactApp\ContactApp\Resources\Images\icons8-contacts-30.png" Closing="Window_Closing" Background="#FFBF1272">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -78,21 +78,21 @@
                 Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 BorderThickness="0,0,0,0" Click="AddButton_Click">
             <Button.Background>
-                <ImageBrush ImageSource="/View/icons8-add-phone-48.png"/>
+                <ImageBrush ImageSource="/Resources/Images/icons8-add-phone-48.png"/>
             </Button.Background>
         </Button>
         <Button Name="EditButton" Grid.Column="1" Grid.Row="3" Height="30" Width="30" 
                 Margin="40,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 BorderThickness="0,0,0,0" Click="EditButton_Click" >
             <Button.Background>
-                <ImageBrush ImageSource="/View/icons8-edit-48.png"/>
+                <ImageBrush ImageSource="/Resources/Images/icons8-edit-48.png"/>
             </Button.Background>
         </Button>
         <Button Name="RemoveButton" Grid.Column="1" Grid.Row="3" Height="30" Width="30" 
                 Margin="80,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 Visibility="Visible" BorderThickness="0,0,0,0" Click="RemoveButton_Click" >
             <Button.Background>
-                <ImageBrush ImageSource="/View/icons8-remove-48.png"/>
+                <ImageBrush ImageSource="/Resources/Images/icons8-remove-48.png"/>
             </Button.Background>
         </Button>
         <Menu Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Top">
