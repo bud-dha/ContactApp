@@ -36,10 +36,7 @@ namespace ContactApp.Model
         public static void CleanFile(Project project)
         {
             XmlSerializer xml = new XmlSerializer(typeof(Project));
-            using (FileStream fs = new FileStream(FileName, FileMode.Truncate))
-            {
-                xml.Serialize(fs, project);
-            }
+            
         }
 
         /// <summary>
@@ -51,7 +48,15 @@ namespace ContactApp.Model
             XmlSerializer xml = new XmlSerializer(typeof(Project));
             using (FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
-                Project project = (Project)xml.Deserialize(fs);
+                Project project = null;
+                try
+                {
+                    project = (Project)xml.Deserialize(fs);
+                }
+                catch 
+                {
+                    return project;
+                }
                 return project;
             }
         }
