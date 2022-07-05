@@ -49,7 +49,7 @@ namespace ContactApp.Model
         public static Project LoadFromFile()
         {
             XmlSerializer xml = new XmlSerializer(typeof(Project));
-            using (FileStream fs = new FileStream(FileName, FileMode.Open))
+            using (FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
                 Project project = (Project)xml.Deserialize(fs);
                 return project;
