@@ -11,12 +11,12 @@ namespace ContactApp.Model
         /// <summary>
         /// Начальное значение Id.
         /// </summary>
-        private static int sId = 1;
+        private static int sId = 1; // именование поля как локальной переменной (не критично)
 
         /// <summary>
         /// Id контакта.
         /// </summary>
-        private int Id;
+        private int Id; // именование поля как свойства (не критично)
 
         /// <summary>
         /// Имя контакта.
@@ -51,15 +51,17 @@ namespace ContactApp.Model
             get => _name;
             set 
             {
-                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
+                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]"); // а зачем каждый раз создавать новый экземпляр регулярки?
 
-                if (regexObj.IsMatch(value) & value.Length < 50)
+                if (regexObj.IsMatch(value) & value.Length < 50) /* 1) ArgumentNullException 
+                                                                  * 2) & и && - в чём отличие?
+                                                                  * 3) если длина превысит 50, пользователь поймёт, что от него хотят?*/
                 {
                     _name = value;
                 }
                 else
                 {
-                    throw new Exception("Имя должно начинаться с большой буквы");
+                    throw new Exception("Имя должно начинаться с большой буквы"); // что произойдёт, когда выполнится эта строка?
                 }
             }
         }
@@ -72,6 +74,7 @@ namespace ContactApp.Model
             get => _surname;
             set
             {
+                /*всё то же, что для Name*/
                 Regex regexObj = new Regex(@"^[А-ЯЁ]{1}[а-яё]");
 
                 if (regexObj.IsMatch(value) & value.Length < 50)
@@ -93,6 +96,8 @@ namespace ContactApp.Model
             get => _patronymic;
             set
             {
+                /*всё то же, что для Name
+                 ПЛЮС: если у человека нет отчества?*/
                 Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
 
                 if (regexObj.IsMatch(value) & value.Length < 50)
@@ -115,7 +120,7 @@ namespace ContactApp.Model
             set
             {
                 Regex regexObj = new Regex(@"[+][7][9][0-9]{9}");
-
+                /*всё то же, что для Name*/
                 if (regexObj.IsMatch(value) & value.Length == 12)
                 {
                     _phone = value;
@@ -133,6 +138,7 @@ namespace ContactApp.Model
         public Contact() 
         {
             Id = sId++;
+            /*Для чего дефолтные значения?*/
             Name = "Имя";
             Surname = "Фамилия";
             Patronymic = "Отчество";

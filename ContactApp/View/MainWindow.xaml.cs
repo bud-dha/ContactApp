@@ -24,17 +24,26 @@ namespace ContactApp
         /// <summary>
         /// Объект класса Project.
         /// </summary>
-        private Project Project { get; set; }
+        private Project Project { get; set; } // приватное свойство? а какой в это смысл?
 
         public MainWindow()
         {
             Project = ProjectSerializer.LoadFromFile();
+
+            /*Об ошибках десериализации пользователь не узнает? Просто увидится, что исчезли все его +100500 контактов...*/
 
             if (Project == null)
             {
                 Project = new Project();
                 Project.Contacts = new List<Contact>();
             }
+            /*
+             * Одной строчкой делается:
+             * Project ??= new Project() { Contacts = new List<Contact>() };
+             * Да и нафига сюда дописывать "Contacts = new List<Contact>()", когда при инициализации класса это и так делается?
+             * Получается, достаточно вот так:
+             * Project ??= new Project();
+             */
 
             InitializeComponent();
 
@@ -46,11 +55,25 @@ namespace ContactApp
         /// </summary>
         private void UpdateListBox()
         {
+            /*а вот это очень плохо и черевато - использовать контролы из кодбехайнда... ещё не работал с потоками, видимо*/
             MainWindowListBox.Items.Clear();
+
+            /*Название свойства Project и название типа Project совпадают.
+             * В итоге метод ContactsByAlfabet - х** пойми что - то ли статический метод класса Project, 
+             * то ли метод экземпляра Project класса Project? То же касается свойства Contacts.
+             * Если б в студии статический анализатор не подсвечивал зелёным цветом классы, то была бы путаница.*/
             Project.Contacts = Project.ContactsByAlfabet();           
 
             for (int i = 0; i < Project.Contacts.Count; i++)
             {
+                /*1) Ты используешь MainWindowListBox - контрол, который можно трогать только в графическом потоке.
+                 *   Значит и этот метод выпоняется в графическом потоке.
+                 *   Значит, будь у тебя гигантский список контактов, то графический поток завис бы на полчаса, чтобы разрулить этот код.
+                 *   
+                 *2) Зачем ToArray()?
+                 *3) И ладно бы непонятно ради чего создал новый массив контактов перед циклом. 
+                 *   Но тут каждую итерацию создаётся новый массив (причём 3 раза!). 
+                 *   Снова представь, что будет с  гигантским списком контактов.*/
                 MainWindowListBox.Items.Insert(i, Project.Contacts.ToArray()[i].Surname + " " +
                 Project.Contacts.ToArray()[i].Name + " " + Project.Contacts.ToArray()[i].Patronymic);
             }
@@ -65,6 +88,9 @@ namespace ContactApp
             Project.Contacts.RemoveAt(index);
             if (MainWindowListBox.SelectedIndex == -1)
             {
+                /* Тебе крупно везёт, что каждый раз MainWindowListBox.SelectedIndex == 0.
+                   Так бы уже давно словил ArgumentOutOfRangeException*/
+
                 MainWindowListBox.SelectedIndex = index;
             }
         }
@@ -74,6 +100,7 @@ namespace ContactApp
         /// </summary>
         private void ClearSelectedContact()
         {
+            /*Промолчу про кодбехайнд*/
             MainWindowIDTextBox.Text = "";
             MainWindowSurnameTextBox.Text = "";
             MainWindowNameTextBox.Text = "";
@@ -93,6 +120,7 @@ namespace ContactApp
             }
             else
             {
+                /*ужс*/
                 MainWindowIDTextBox.Text = Project.Contacts.ToArray()[index].ID.ToString();
                 MainWindowSurnameTextBox.Text = Project.Contacts.ToArray()[index].Surname;
                 MainWindowNameTextBox.Text = Project.Contacts.ToArray()[index].Name;
@@ -108,7 +136,7 @@ namespace ContactApp
         {
             var contactWindow = new ContactWindow();
             var result = contactWindow.ShowDialog();
-            if (result == true)
+            if (result == true) // if (contactWindow.ShowDialog())
             {
                 Project.Contacts.Add(contactWindow.Contact);
                 ProjectSerializer.SaveToFile(Project);
@@ -126,20 +154,23 @@ namespace ContactApp
                 MessageBox.Show("Необходимо выбрать контакт");
                 return;
             }
-
+            /*т.к. ты не используешь Binding, то можешь попасть в ситуацию, когда Project.Contacts.Count не стыкуется с MainWindowListBox.Items.Count*/
             var selectedIndex = MainWindowListBox.SelectedIndex;
             var selectedContact = Project.Contacts[selectedIndex];
-            var contactWindow = new ContactWindow();
+            var contactWindow = new ContactWindow(); // в конструктор добавить Contact, не?
             contactWindow.Contact = selectedContact;            
             var result = contactWindow.ShowDialog();
 
-            if (result == true)
+            if (result == true) // снова зачем-то локальная перменная result...
             {
                 var updatedData = contactWindow.Contact;
-
+                /*про кодбехайнд я уже писал*/
                 MainWindowListBox.Items.RemoveAt(selectedIndex);
                 Project.Contacts.RemoveAt(selectedIndex);
                 Project.Contacts.Insert(selectedIndex, updatedData);
+
+                /* о_О wtf???
+                  напёрстки какие-то...*/
                 Project.Contacts[Project.Contacts.IndexOf(Project.Contacts[selectedIndex])] = Project.Contacts[selectedIndex];
                 UpdateListBox();
             }
@@ -156,6 +187,8 @@ namespace ContactApp
                 return;
             }
 
+            /*1) лишняя переменная
+              2) почему не используешь интерполяцию?*/
             var result = MessageBox.Show("Вы действительно хотите удалить контакт " +
                 MainWindowListBox.SelectedItem.ToString() + "?", "", MessageBoxButton.YesNo);
 
@@ -164,7 +197,7 @@ namespace ContactApp
                 RemoveContactFromListBox(MainWindowListBox.SelectedIndex);
                 ProjectSerializer.CleanFile(Project);
             }
-            else if (result == MessageBoxResult.No)
+            else if (result == MessageBoxResult.No) //там были ещё варианты? или при закрытии окошка что-то другое должно быть?
             {
                 return;
             }
@@ -177,6 +210,7 @@ namespace ContactApp
             UpdateSelectedContact(MainWindowListBox.SelectedIndex);
         }
 
+        /*Если бы использовал MVVM, то добавил бы одну команду и не плодил кучу одинаковых методов на разные кнопки*/
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddContact();
