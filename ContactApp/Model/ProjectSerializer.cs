@@ -25,6 +25,7 @@ namespace ContactApp.Model
             XmlSerializer xml = new XmlSerializer(typeof (Project));
             using (FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
+                /*Почему здесь не используешь try-catch, как в методе LoadFromFile?*/
                 xml.Serialize(fs, project);            
             }
         }
@@ -36,7 +37,7 @@ namespace ContactApp.Model
         public static void CleanFile(Project project)
         {
             XmlSerializer xml = new XmlSerializer(typeof(Project));
-            
+            /*???*/
         }
 
         /// <summary>
@@ -48,16 +49,18 @@ namespace ContactApp.Model
             XmlSerializer xml = new XmlSerializer(typeof(Project));
             using (FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
-                Project project = null;
+                // можно проще сделать
+                Project project = null; // 1) это убираем
+                /*Почему здесь используешь try-catch, а в методе SaveToFile - нет?*/
                 try
                 {
-                    project = (Project)xml.Deserialize(fs);
+                    project = (Project)xml.Deserialize(fs); // 2) return xml.Deserialize(fs) as Project;
                 }
-                catch 
+                catch // Проверь, почему после удаления контакта, у тебя возникате ошибка десериализации.
                 {
-                    return project;
+                    return project; // 3) return null;
                 }
-                return project;
+                return project; // 4) это тоже не нужно
             }
         }
     }
