@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactApp"
         mc:Ignorable="d"
-        Title="Add/Edit Contact" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png">
+        Title="Добавить/Редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png">
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <Style TargetType="{x:Type TextBox}">

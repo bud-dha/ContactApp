@@ -24,17 +24,11 @@ namespace ContactApp
         /// <summary>
         /// Объект класса Project.
         /// </summary>
-        private Project Project { get; set; }
+        private Project _project;
 
         public MainWindow()
         {
-            Project = ProjectSerializer.LoadFromFile();
-
-            if (Project == null)
-            {
-                Project = new Project();
-                Project.Contacts = new List<Contact>();
-            }
+            _project = ProjectSerializer.LoadFromFile();
 
             InitializeComponent();
 
@@ -47,12 +41,11 @@ namespace ContactApp
         private void UpdateListBox()
         {
             MainWindowListBox.Items.Clear();
-            Project.Contacts = Project.ContactsByAlfabet();           
+            _project.Contacts = _project.ContactsByAlfabet();
 
-            for (int i = 0; i < Project.Contacts.Count; i++)
+            foreach (Contact contact in _project.Contacts)
             {
-                MainWindowListBox.Items.Insert(i, Project.Contacts.ToArray()[i].Surname + " " +
-                Project.Contacts.ToArray()[i].Name + " " + Project.Contacts.ToArray()[i].Patronymic);
+                MainWindowListBox.Items.Add(contact.Surname + " " + contact.Name + " " + contact.Patronymic);
             }
         }
 
@@ -62,7 +55,7 @@ namespace ContactApp
         /// <param name="index">Индекс удаляемого из списка элемента</param>
         private void RemoveContactFromListBox(int index)
         {
-            Project.Contacts.RemoveAt(index);
+            _project.Contacts.RemoveAt(index);
             if (MainWindowListBox.SelectedIndex == -1)
             {
                 MainWindowListBox.SelectedIndex = index;
@@ -93,11 +86,12 @@ namespace ContactApp
             }
             else
             {
-                MainWindowIDTextBox.Text = Project.Contacts.ToArray()[index].ID.ToString();
-                MainWindowSurnameTextBox.Text = Project.Contacts.ToArray()[index].Surname;
-                MainWindowNameTextBox.Text = Project.Contacts.ToArray()[index].Name;
-                MainWindowPatronymicTextBox.Text = Project.Contacts.ToArray()[index].Patronymic;
-                MainWindowPhoneTextBox.Text = Project.Contacts.ToArray()[index].Phone;
+                Contact contact = _project.Contacts[index];
+                MainWindowIDTextBox.Text = contact.ID.ToString();
+                MainWindowSurnameTextBox.Text = contact.Surname;
+                MainWindowNameTextBox.Text = contact.Name;
+                MainWindowPatronymicTextBox.Text = contact.Patronymic;
+                MainWindowPhoneTextBox.Text = contact.Phone;
             }
         }
 
@@ -106,12 +100,11 @@ namespace ContactApp
         /// </summary>
         private void AddContact()
         {
-            var contactWindow = new ContactWindow();
-            var result = contactWindow.ShowDialog();
-            if (result == true)
+            var contactWindow = new ContactWindow();            
+            if ((bool)contactWindow.ShowDialog())
             {
-                Project.Contacts.Add(contactWindow.Contact);
-                ProjectSerializer.SaveToFile(Project);
+                _project.Contacts.Add(contactWindow.Contact);
+                ProjectSerializer.SaveToFile(_project);
             }
             UpdateListBox();
         }
@@ -128,19 +121,18 @@ namespace ContactApp
             }
 
             var selectedIndex = MainWindowListBox.SelectedIndex;
-            var selectedContact = Project.Contacts[selectedIndex];
+            var selectedContact = _project.Contacts[selectedIndex];
             var contactWindow = new ContactWindow();
-            contactWindow.Contact = selectedContact;            
-            var result = contactWindow.ShowDialog();
+            contactWindow.Contact = selectedContact;                        
 
-            if (result == true)
+            if ((bool)contactWindow.ShowDialog())
             {
                 var updatedData = contactWindow.Contact;
 
                 MainWindowListBox.Items.RemoveAt(selectedIndex);
-                Project.Contacts.RemoveAt(selectedIndex);
-                Project.Contacts.Insert(selectedIndex, updatedData);
-                Project.Contacts[Project.Contacts.IndexOf(Project.Contacts[selectedIndex])] = Project.Contacts[selectedIndex];
+                _project.Contacts.RemoveAt(selectedIndex);
+                _project.Contacts.Insert(selectedIndex, updatedData);
+                _project.Contacts[_project.Contacts.IndexOf(_project.Contacts[selectedIndex])] = _project.Contacts[selectedIndex];
                 UpdateListBox();
             }
         }
@@ -161,10 +153,9 @@ namespace ContactApp
 
             if (result == MessageBoxResult.Yes)
             {
-                RemoveContactFromListBox(MainWindowListBox.SelectedIndex);
-                ProjectSerializer.CleanFile(Project);
+                RemoveContactFromListBox(MainWindowListBox.SelectedIndex);                
             }
-            else if (result == MessageBoxResult.No)
+            else 
             {
                 return;
             }
@@ -209,8 +200,8 @@ namespace ContactApp
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
-            Project.Contacts = Project.ContactsById();
-            ProjectSerializer.SaveToFile(Project);
+            _project.Contacts = _project.ContactsById();
+            ProjectSerializer.SaveToFile(_project);
             Close();
         }
 
@@ -219,8 +210,8 @@ namespace ContactApp
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                Project.Contacts = Project.ContactsById();
-                ProjectSerializer.SaveToFile(Project);
+                _project.Contacts = _project.ContactsById();
+                ProjectSerializer.SaveToFile(_project);
                 e.Cancel = false;
             }
             else

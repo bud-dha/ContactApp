@@ -11,12 +11,12 @@ namespace ContactApp.Model
         /// <summary>
         /// Начальное значение Id.
         /// </summary>
-        private static int sId = 1;
+        private static int _sid = 1;
 
         /// <summary>
         /// Id контакта.
         /// </summary>
-        private int Id;
+        private int _id;
 
         /// <summary>
         /// Имя контакта.
@@ -41,7 +41,7 @@ namespace ContactApp.Model
         /// <summary>
         /// Возвращает ID контакта.
         /// </summary>
-        public int ID { get => Id; }
+        public int ID { get => _id; }
 
         /// <summary>
         /// Задает и возвращает имя контакта.
@@ -50,16 +50,14 @@ namespace ContactApp.Model
         {
             get => _name;
             set 
-            {
-                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
-
-                if (regexObj.IsMatch(value) & value.Length < 50)
+            {                
+                if (isFormatCorrect(value) && value.Length < 50)
                 {
                     _name = value;
                 }
                 else
                 {
-                    throw new Exception("Имя должно начинаться с большой буквы");
+                    throw new ArgumentException("Имя должно содержать от 2 до 50 символов и начинаться с большой буквы.");
                 }
             }
         }
@@ -72,15 +70,13 @@ namespace ContactApp.Model
             get => _surname;
             set
             {
-                Regex regexObj = new Regex(@"^[А-ЯЁ]{1}[а-яё]");
-
-                if (regexObj.IsMatch(value) & value.Length < 50)
+                if (isFormatCorrect(value) && value.Length < 50)
                 {
                     _surname = value;
                 }
                 else
                 {
-                    throw new Exception("Фамилия должна начинаться с большой буквы");
+                    throw new ArgumentException("Фамилия должна содержать от 2 до 50 символов и начинаться с большой буквы.");
                 }
             }
         }
@@ -93,15 +89,13 @@ namespace ContactApp.Model
             get => _patronymic;
             set
             {
-                Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
-
-                if (regexObj.IsMatch(value) & value.Length < 50)
+                if (value == "" | (isFormatCorrect(value) && value.Length < 50))
                 {
                     _patronymic = value;
                 }
                 else
                 {
-                    throw new Exception("Отчество должно начинаться с большой буквы");
+                    throw new ArgumentException("Отчество должно содержать от 2 до 50 символов и начинаться с большой буквы.");
                 }
             }
         }
@@ -122,7 +116,7 @@ namespace ContactApp.Model
                 }
                 else
                 {
-                    throw new Exception("Номер телефона должен соответствовать маске +79*********");
+                    throw new ArgumentException("Номер телефона должен соответствовать маске +79*********");
                 }                
             }
         }
@@ -132,11 +126,18 @@ namespace ContactApp.Model
         /// </summary>
         public Contact() 
         {
-            Id = sId++;
-            Name = "Имя";
-            Surname = "Фамилия";
-            Patronymic = "Отчество";
-            Phone = "+79999999099";
+            _id = _sid++;
+        }
+
+        /// <summary>
+        /// Проверяет строку на соответствие формату.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns>true - строка подходит по требованиям, false - строка не прошла проверку.</returns>
+        private bool isFormatCorrect(string str)
+        {
+            Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
+            return regexObj.IsMatch(str);
         }
     }
 }
