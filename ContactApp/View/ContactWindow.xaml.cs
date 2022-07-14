@@ -36,16 +36,16 @@ namespace ContactApp
         /// <summary>
         /// Свойство для пердачи данных контакта.
         /// </summary>
-        private Contact _contact = new Contact();
+        private Contact _transferContact = new Contact();
 
         /// <summary>
         /// Возвращает и задает свойство для передачи двнных контакта.
         /// </summary>
-        public Contact Contact
+        public Contact TransferContact
         {
-            get => _contact;
+            get => _transferContact;
             set {
-                _contact = value;                
+                _transferContact = value;
                 UpdateWindow();               
             }
         }
@@ -60,10 +60,10 @@ namespace ContactApp
         /// </summary>
         private void UpdateWindow()
         {
-            ContactWindowNameTextBox.Text = _contact.Name;
-            ContactWindowSurnameTextBox.Text = _contact.Surname;
-            ContactWindowPatronymicTextBox.Text = _contact.Patronymic;
-            ContactWindowPhoneTextBox.Text = _contact.Phone;
+            ContactWindowNameTextBox.Text = _transferContact.Name;
+            ContactWindowSurnameTextBox.Text = _transferContact.Surname;
+            ContactWindowPatronymicTextBox.Text = _transferContact.Patronymic;
+            ContactWindowPhoneTextBox.Text = _transferContact.Phone;
         }
 
         /// <summary>
@@ -71,10 +71,10 @@ namespace ContactApp
         /// </summary>
         private void UpdateContact()
         {
-            _contact.Surname = ContactWindowSurnameTextBox.Text;
-            _contact.Name = ContactWindowNameTextBox.Text;
-            _contact.Patronymic = ContactWindowPatronymicTextBox.Text;
-            _contact.Phone = ContactWindowPhoneTextBox.Text;
+            _transferContact.Surname = ContactWindowSurnameTextBox.Text;
+            _transferContact.Name = ContactWindowNameTextBox.Text;
+            _transferContact.Patronymic = ContactWindowPatronymicTextBox.Text;
+            _transferContact.Phone = ContactWindowPhoneTextBox.Text;
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace ContactApp
         {
             try
             {
-                _contact.Surname = ContactWindowSurnameTextBox.Text;
+                _transferContact.Surname = ContactWindowSurnameTextBox.Text;
                 ContactWindowSurnameTextBox.BorderBrush = _correctValueColor;
                 _titleError = "";
             }
@@ -109,7 +109,7 @@ namespace ContactApp
         {
             try
             {
-                _contact.Name = ContactWindowNameTextBox.Text;
+                _transferContact.Name = ContactWindowNameTextBox.Text;
                 ContactWindowNameTextBox.BorderBrush = _correctValueColor;
                 _titleError = "";
             }
@@ -124,7 +124,7 @@ namespace ContactApp
         {
             try
             {
-                _contact.Patronymic = ContactWindowPatronymicTextBox.Text;
+                _transferContact.Patronymic = ContactWindowPatronymicTextBox.Text;
                 ContactWindowPatronymicTextBox.BorderBrush = _correctValueColor;
                 _titleError = "";
             }
@@ -139,7 +139,7 @@ namespace ContactApp
         {
             try
             {
-                _contact.Phone = ContactWindowPhoneTextBox.Text;
+                _transferContact.Phone = ContactWindowPhoneTextBox.Text;
                 ContactWindowPhoneTextBox.BorderBrush = _correctValueColor;
                 _titleError = "";
             }

@@ -16,7 +16,7 @@ namespace ContactApp.Model
         /// Возвращает и задает список контактов пользователя.
         /// </summary>
         public List<Contact> Contacts = new List<Contact>();
-
+        
         /// <summary>
         /// Возвращает список отсортированный по Id.
         /// </summary>

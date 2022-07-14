@@ -103,8 +103,7 @@ namespace ContactApp
             var contactWindow = new ContactWindow();            
             if ((bool)contactWindow.ShowDialog())
             {
-                _project.Contacts.Add(contactWindow.Contact);
-                ProjectSerializer.SaveToFile(_project);
+                _project.Contacts.Add(contactWindow.TransferContact);                
             }
             UpdateListBox();
         }
@@ -123,11 +122,11 @@ namespace ContactApp
             var selectedIndex = MainWindowListBox.SelectedIndex;
             var selectedContact = _project.Contacts[selectedIndex];
             var contactWindow = new ContactWindow();
-            contactWindow.Contact = selectedContact;                        
+            contactWindow.TransferContact = selectedContact;                        
 
             if ((bool)contactWindow.ShowDialog())
             {
-                var updatedData = contactWindow.Contact;
+                var updatedData = contactWindow.TransferContact;
 
                 MainWindowListBox.Items.RemoveAt(selectedIndex);
                 _project.Contacts.RemoveAt(selectedIndex);

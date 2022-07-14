@@ -130,10 +130,9 @@ namespace ContactApp.Model
         }
 
         /// <summary>
-        /// Проверяет строку на соответствие формату.
+        /// Возвращает соответсвие строки на формату.
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns>true - строка подходит по требованиям, false - строка не прошла проверку.</returns>
+        /// <param name="str"></param>        
         private bool isFormatCorrect(string str)
         {
             Regex regexObj = new Regex(@"^[A-ЯЁ][а-яё]");
