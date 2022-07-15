@@ -11,13 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewModel\**" />
-    <EmbeddedResource Remove="ViewModel\**" />
-    <None Remove="ViewModel\**" />
-    <Page Remove="ViewModel\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Resources\Images\icons8-contacts-30.png" />
     <None Remove="View\icons8-add-phone-48.png" />
     <None Remove="View\icons8-contacts-30.png" />
