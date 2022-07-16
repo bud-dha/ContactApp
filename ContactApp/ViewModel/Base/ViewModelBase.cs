@@ -9,7 +9,7 @@ namespace ContactApp.ViewModel.Base
     /// <summary>
     /// Шаблон класса ViewModel.
     /// </summary>
-    internal abstract class ViewModel : INotifyPropertyChanged
+    internal abstract class ViewModelBase : INotifyPropertyChanged
     {
         /// <summary>
         /// Событие изменеия свойства.
