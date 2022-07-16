@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactApp"
+        xmlns:vm="clr-namespace:ContactApp.ViewModel"
         mc:Ignorable="d"
-        Title="Добавить/Редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png">
+        Title="Добавить/редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png">
+    <Window.DataContext>
+        <vm:ContactWindowViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <Style TargetType="{x:Type TextBox}">
@@ -47,19 +51,19 @@
     <Grid>
         <Label Content="Фамилия:" FontSize="13" FontFamily="Arial" 
                Margin="13,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" 
+        <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
                  Height="21" VerticalAlignment="Top" TextChanged="ContactWindowSurnameTextBox_TextChanged" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" FontFamily="Arial" FontSize="13" />
         <Label Content="Имя:"  FontSize="13" FontFamily="Arial" 
                Margin="43,62,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" 
+        <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  Height="21" VerticalAlignment="Top" TextChanged="ContactWindowNameTextBox_TextChanged" FontFamily="Arial" FontSize="13" />
         <Label Content="Телефон:"  FontSize="13" FontFamily="Arial" 
                Margin="14,115,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" 
+        <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"
                  Height="21" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" FontStyle="Italic" TextChanged="ContactWindowPhoneTextBox_TextChanged" />
         <Label Content="Отчество:" FontSize="13" FontFamily="Arial" 
                Margin="12,88,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="ContactWindowPatronymicTextBox"  Margin="82,90,10,0"
+        <TextBox x:Name="ContactWindowPatronymicTextBox"  Margin="82,90,10,0" Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"
                  Height="21" VerticalAlignment="Top" TextChanged="ContactWindowPatronymicTextBox_TextChanged" FontFamily="Arial" FontSize="13" />
         <Button Content="Принять" Margin="0,0,75,13"
                 Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
