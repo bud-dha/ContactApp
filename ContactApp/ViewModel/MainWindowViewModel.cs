@@ -1,10 +1,14 @@
-﻿using ContactApp.ViewModel.Base;
+﻿using System.Windows;
+using System.Windows.Input;
+using ContactApp.ViewModel.Base;
+using ContactApp.Infrastructure.Comands;
 
 namespace ContactApp.ViewModel
 {
     // А что если унаследовать от ContactWindowViewModel????
     class MainWindowViewModel : ViewModelBase
     {
+        #region
         /// <summary>
         /// Текстовое поле id.
         /// </summary>
@@ -74,6 +78,28 @@ namespace ContactApp.ViewModel
             get => _phone;
             set => Set(ref _phone, value);
         }
+        #endregion
 
+        #region Команды
+
+        #region CloseAplicationCommand
+
+        public ICommand CloseAplicationCommand { get; }
+
+        private void OnCloseAplicationCommandExecuted(object p)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private bool CanCloseAplicationCommandExecut(object p) => true;
+
+        #endregion
+
+        #endregion
+
+        public MainWindowViewModel()
+        {
+            CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
+        }
     }
 }

@@ -1,9 +1,14 @@
-﻿using ContactApp.ViewModel.Base;
+﻿using System.Windows;
+using System.Windows.Input;
+using ContactApp.ViewModel.Base;
+using ContactApp.Infrastructure.Comands;
 
 namespace ContactApp.ViewModel
 {
     class ContactWindowViewModel : ViewModelBase
     {
+        #region Свойства
+
         /// <summary>
         /// Текстовое поле фамилии.
         /// </summary>
@@ -58,6 +63,18 @@ namespace ContactApp.ViewModel
         {
             get => _phone;
             set => Set(ref _phone, value);
+        }
+        #endregion
+
+        #region Команды
+
+        
+
+        #endregion
+
+        public ContactWindowViewModel()
+        {
+            
         }
     }
 }

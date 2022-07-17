@@ -101,7 +101,7 @@
         </Button>
         <Menu Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Height="25" VerticalAlignment="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Click="MenuItemExit_Click"/>
+                <MenuItem Header="Выход" Command="{Binding CloseAplicationCommand}"/>
             </MenuItem>
             <MenuItem Header="Изменить">
                 <MenuItem Header="Добавить контакт" Click="MenuItemAdd_Click"/>
