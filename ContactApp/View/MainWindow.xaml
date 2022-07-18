@@ -72,7 +72,8 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Name="MainWindowListBox" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="MainWindowListBox_SelectionChanged"/>
+        <ListBox ItemsSource="{Binding Contacts}" Name="MainWindowListBox" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="True" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="MainWindowListBox_SelectionChanged"/>
         <GridSplitter Grid.Column="2" Grid.RowSpan="4" ShowsPreview="True" Width="7" 
              HorizontalAlignment="Center" VerticalAlignment="Stretch">
         </GridSplitter>

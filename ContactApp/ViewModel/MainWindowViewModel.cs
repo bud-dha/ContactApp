@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using ContactApp.ViewModel.Base;
 using ContactApp.Infrastructure.Comands;
+using ContactApp.Model;
 
 namespace ContactApp.ViewModel
 {
@@ -33,6 +34,11 @@ namespace ContactApp.ViewModel
         /// Текстовое поле номера телефона.
         /// </summary>
         private string _phone;
+
+        /// <summary>
+        /// Объект класса Project.
+        /// </summary>
+        private Project _project;
 
         /// <summary>
         /// Задает и возвращает текстовое поле фамилии.
@@ -78,6 +84,16 @@ namespace ContactApp.ViewModel
             get => _phone;
             set => Set(ref _phone, value);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Project Project
+        {
+            get => _project;
+            set => Set(ref _project, value);
+        }
+
         #endregion
 
         #region Команды
@@ -100,6 +116,10 @@ namespace ContactApp.ViewModel
         public MainWindowViewModel()
         {
             CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
+
+            _project = ProjectSerializer.LoadFromFile();
         }
+
+
     }
 }

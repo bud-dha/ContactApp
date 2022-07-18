@@ -1,6 +1,8 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 using System.Windows.Input;
 using ContactApp.ViewModel.Base;
+using ContactApp.Model;
 using ContactApp.Infrastructure.Comands;
 
 namespace ContactApp.ViewModel
@@ -8,6 +10,26 @@ namespace ContactApp.ViewModel
     class ContactWindowViewModel : ViewModelBase
     {
         #region Свойства
+
+        /// <summary>
+        /// Цвет некоректного ввода.
+        /// </summary>
+        private readonly Brush _wrongValueColor = Brushes.Red;
+
+        /// <summary>
+        /// Цвет корректного ввода.
+        /// </summary>
+        private readonly Brush _correctValueColor = Brushes.Gray;
+
+        /// <summary>
+        /// Сообщение об ошибке.
+        /// </summary>
+        private string _titleError;
+
+        /// <summary>
+        /// Свойство для пердачи данных контакта.
+        /// </summary>
+        private Contact _transferContact = new Contact();
 
         /// <summary>
         /// Текстовое поле фамилии.
@@ -64,11 +86,23 @@ namespace ContactApp.ViewModel
             get => _phone;
             set => Set(ref _phone, value);
         }
+
+        /// <summary>
+        /// Возвращает и задает свойство для передачи двнных контакта.
+        /// </summary>
+        public Contact TransferContact
+        {
+            get => _transferContact;
+            set
+            {
+                _transferContact = value;                
+            }
+        }
         #endregion
 
         #region Команды
 
-        
+
 
         #endregion
 

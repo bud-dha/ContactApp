@@ -197,13 +197,6 @@ namespace ContactApp
             RemoveContact();
         }
 
-        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
-        {
-            _project.Contacts = _project.ContactsById();
-            ProjectSerializer.SaveToFile(_project);
-            Close();
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
