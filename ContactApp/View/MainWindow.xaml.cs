@@ -197,6 +197,14 @@ namespace ContactApp
             RemoveContact();
         }
 
+
+
+
+
+
+
+
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);

@@ -150,9 +150,5 @@ namespace ContactApp
             UpdateContact();
         }
 
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-        }
     }
 }

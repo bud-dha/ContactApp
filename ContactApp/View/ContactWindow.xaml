@@ -69,6 +69,7 @@
                 Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                 Width="60" Click="ButtonOk_Click"/>
         <Button Content="Закрыть" Margin="0,0,10,13" HorizontalAlignment="Right" 
-                Width="60" Height="30" VerticalAlignment="Bottom" Click="ButtonCancel_Click"/>
+                Command="{Binding CloseContactWindowCommand}"
+                Width="60" Height="30" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

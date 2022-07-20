@@ -9,6 +9,11 @@ namespace ContactApp.ViewModel
 {
     class ContactWindowViewModel : ViewModelBase
     {
+        public ContactWindowViewModel()
+        {
+            CloseContactWindowCommand = new LambdaCommand(OnCloseContactWindowCommandExecuted, CanCloseContactWindowCommandExecut);
+        }
+
         #region Свойства
 
         /// <summary>
@@ -88,7 +93,7 @@ namespace ContactApp.ViewModel
         }
 
         /// <summary>
-        /// Возвращает и задает свойство для передачи двнных контакта.
+        /// Возвращает и задает свойство для передачи данных контакта.
         /// </summary>
         public Contact TransferContact
         {
@@ -98,17 +103,39 @@ namespace ContactApp.ViewModel
                 _transferContact = value;                
             }
         }
+
         #endregion
 
         #region Команды
 
+        #region CloseContactWindowCommand
 
+        public ICommand CloseContactWindowCommand { get; }
+
+        private void OnCloseContactWindowCommandExecuted(object p)
+        {
+              
+        }
+
+        private bool CanCloseContactWindowCommandExecut(object p) => true;
 
         #endregion
 
-        public ContactWindowViewModel()
+        #endregion
+
+        /// <summary>
+        /// Проверяет форму на наличие ошибок.
+        /// </summary>
+        private bool CheckOnErrors()
         {
-            
+            if (_titleError.Length > 1)
+            {
+                MessageBox.Show(_titleError);
+                return false;
+            }
+            return true;
         }
+
+
     }
 }
