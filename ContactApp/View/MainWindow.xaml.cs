@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ContactApp.Model;
+using ContactApp.ViewModel;
 
 namespace ContactApp
 {
@@ -22,19 +22,18 @@ namespace ContactApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            DataContext = new MainWindowViewModel();
+        }
+
+        /*
         /// <summary>
         /// Объект класса Project.
         /// </summary>
         private Project _project;
-
-        public MainWindow()
-        {
-           _project = ProjectSerializer.LoadFromFile();
-
-            InitializeComponent();
-
-            UpdateListBox();
-        }
 
         /// <summary>
         /// Добавляет и очищает заметки из ListBox.
@@ -198,7 +197,7 @@ namespace ContactApp
             RemoveContact();
         }
 
-
+        */
 
 
 
@@ -211,14 +210,10 @@ namespace ContactApp
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                _project.Contacts = _project.ContactsById();
-                ProjectSerializer.SaveToFile(_project);
                 e.Cancel = false;
             }
-            else
-            {
-                e.Cancel = true;
-            }
+            e.Cancel = true;            
         }
+        
     }
 }

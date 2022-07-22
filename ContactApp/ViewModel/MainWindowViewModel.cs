@@ -2,22 +2,22 @@
 using System.Windows.Input;
 using ContactApp.ViewModel.Base;
 using ContactApp.Infrastructure.Comands;
+using System.Collections.ObjectModel;
 using ContactApp.Model;
 
 namespace ContactApp.ViewModel
-{
-    // А что если унаследовать от ContactWindowViewModel????
+{   
     class MainWindowViewModel : ViewModelBase
     {
-        #region
+        #region Свойства
 
         /// <summary>
-        /// 
+        /// Объект класса Project.
         /// </summary>
         private Project _project;
 
         /// <summary>
-        /// 
+        /// Объект класса Contact.
         /// </summary>
         private Contact _contact;
 
@@ -47,7 +47,7 @@ namespace ContactApp.ViewModel
         private string _phone;
 
         /// <summary>
-        /// 
+        /// Задает и возвращает объект класса Project.
         /// </summary>
         public Project Project
         {
@@ -56,13 +56,22 @@ namespace ContactApp.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Задает и возвращает объект класса Contact.
         /// </summary>
         public Contact Contact
         {
             get => _contact;
-            set => Set(ref _contact, value);
+            set 
+            {
+                _contact = value;
+                OnPropertyChanged("Contact");
+            }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ObservableCollection<Contact> Contacts { get; set; }
 
         /// <summary>
         /// Задает и возвращает текстовое поле фамилии.
@@ -119,12 +128,18 @@ namespace ContactApp.ViewModel
 
         private void OnCloseAplicationCommandExecuted(object p)
         {
-            Application.Current.Shutdown();
+            var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private bool CanCloseAplicationCommandExecut(object p) => true;
 
         #endregion
+
+
 
         #endregion
 
@@ -134,7 +149,13 @@ namespace ContactApp.ViewModel
 
             _project = ProjectSerializer.LoadFromFile();
 
-            _contact = new Contact();
+            Contacts = new ObservableCollection<Contact>();
+
+            foreach (var items in _project.Contacts)
+            {
+                Contacts.Add(items);
+            }
+
         }
 
 
