@@ -10,6 +10,17 @@ namespace ContactApp.ViewModel
     class MainWindowViewModel : ViewModelBase
     {
         #region
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Project _project;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Contact _contact;
+
         /// <summary>
         /// Текстовое поле id.
         /// </summary>
@@ -36,9 +47,22 @@ namespace ContactApp.ViewModel
         private string _phone;
 
         /// <summary>
-        /// Объект класса Project.
+        /// 
         /// </summary>
-        private Project _project;
+        public Project Project
+        {
+            get => _project;
+            set => Set(ref _project, value);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Contact Contact
+        {
+            get => _contact;
+            set => Set(ref _contact, value);
+        }
 
         /// <summary>
         /// Задает и возвращает текстовое поле фамилии.
@@ -85,15 +109,6 @@ namespace ContactApp.ViewModel
             set => Set(ref _phone, value);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Project Project
-        {
-            get => _project;
-            set => Set(ref _project, value);
-        }
-
         #endregion
 
         #region Команды
@@ -118,6 +133,8 @@ namespace ContactApp.ViewModel
             CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
 
             _project = ProjectSerializer.LoadFromFile();
+
+            _contact = new Contact();
         }
 
 

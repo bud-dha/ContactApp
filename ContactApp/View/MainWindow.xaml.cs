@@ -16,6 +16,7 @@ using ContactApp.Model;
 
 namespace ContactApp
 {
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -28,7 +29,7 @@ namespace ContactApp
 
         public MainWindow()
         {
-            _project = ProjectSerializer.LoadFromFile();
+           _project = ProjectSerializer.LoadFromFile();
 
             InitializeComponent();
 
