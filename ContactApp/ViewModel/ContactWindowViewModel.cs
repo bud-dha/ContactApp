@@ -1,8 +1,8 @@
 ﻿using System.Windows;
+using ContactApp.Model;
 using System.Windows.Media;
 using System.Windows.Input;
 using ContactApp.ViewModel.Base;
-using ContactApp.Model;
 using ContactApp.Infrastructure.Comands;
 
 namespace ContactApp.ViewModel

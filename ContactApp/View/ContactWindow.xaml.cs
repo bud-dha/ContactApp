@@ -11,6 +11,11 @@ namespace ContactApp
     /// </summary>
     public partial class ContactWindow : Window
     {
+        public ContactWindow()
+        {
+            InitializeComponent();
+        }
+
         /// <summary>
         /// Цвет некоректного ввода.
         /// </summary>
@@ -41,12 +46,7 @@ namespace ContactApp
                 _transferContact = value;
                 UpdateWindow();               
             }
-        }
-
-        public ContactWindow()
-        {
-            InitializeComponent();                        
-        }
+        }      
 
         /// <summary>
         /// Заполняет поля формы данными из плоля _note.

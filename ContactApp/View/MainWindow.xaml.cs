@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ContactApp.ViewModel;
+﻿using System.Windows;
 
 namespace ContactApp
 {
@@ -25,8 +11,6 @@ namespace ContactApp
         public MainWindow()
         {
             InitializeComponent();
-
-            DataContext = new MainWindowViewModel();
         }
 
         /*
@@ -199,21 +183,5 @@ namespace ContactApp
 
         */
 
-
-
-
-
-
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                e.Cancel = false;
-            }
-            e.Cancel = true;            
-        }
-        
     }
 }

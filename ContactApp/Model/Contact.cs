@@ -37,9 +37,16 @@ namespace ContactApp.Model
         private string _phone;
 
         /// <summary>
-        /// Возвращает ID контакта.
+        /// Возвращает и задает ID контакта.
         /// </summary>
-        public int ID { get => _id; }
+        public int ID 
+        { 
+            get => _id; 
+            set
+            { 
+                _id = value; 
+            } 
+        }
 
         /// <summary>
         /// Задает и возвращает имя контакта.

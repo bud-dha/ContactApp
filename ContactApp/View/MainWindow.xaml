@@ -90,7 +90,7 @@
             </MenuItem>
         </Menu>
 
-        <ListBox ItemsSource="{Binding Contacts}" Name="MainWindowListBox"
+        <ListBox ItemsSource="{Binding ListBoxContacts}" Name="MainWindowListBox"
                  SelectedItem="{Binding SelectedContact}" Grid.Column="1"                   
                  Grid.Row="2" ScrollViewer.CanContentScroll="True" 
                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
@@ -137,7 +137,7 @@
 
         <Button Name="RemoveButton" Grid.Column="1" Grid.Row="3" Height="30"
                 Width="30" Margin="80,10,0,0" HorizontalAlignment="Left" 
-                VerticalAlignment="Top" BorderThickness="0,0,0,0" >
+                VerticalAlignment="Top" BorderThickness="0,0,0,0" Command="{Binding RemoveContactCommand}">
             <Button.Background>
                 <ImageBrush ImageSource="/Resources/Images/icons8-remove-48.png"/>
             </Button.Background>
@@ -151,7 +151,7 @@
                FontSize="13" Margin="55,37,0,0" FontFamily="Arial" Width="Auto"
                VerticalAlignment="Top" HorizontalAlignment="Left" />
             <TextBox x:Name="MainWindowIDTextBox" Grid.Row="2" Grid.Column="3" Margin="82,0,10,0" 
-                 Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
+                 Text="{Binding SelectedContact.ID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
                  VerticalAlignment="Top"  Height="21" FontFamily="Arial" FontSize="13"/>
 
             <Label Content="Фамилия:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 

@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
+using ContactApp.Model;
 using System.Windows.Input;
 using ContactApp.ViewModel.Base;
-using ContactApp.Infrastructure.Comands;
 using System.Collections.ObjectModel;
-using ContactApp.Model;
+using ContactApp.Infrastructure.Comands;
 
 namespace ContactApp.ViewModel
 {   
@@ -20,11 +21,6 @@ namespace ContactApp.ViewModel
         /// Объект класса Contact.
         /// </summary>
         private Contact _selectedcontact;
-
-        /// <summary>
-        /// Текстовое поле id.
-        /// </summary>
-        private int _id;
         
         /// <summary>
         /// Задает и возвращает объект класса Project.
@@ -49,24 +45,15 @@ namespace ContactApp.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Звдает и возвращает спиcок контактов выводимых на ListBox.
         /// </summary>
-        public ObservableCollection<Contact> Contacts { get; set; }
-
-        /// <summary>
-        /// Задает и возвращает текстовое поле фамилии.
-        /// </summary>
-        public int Id
-        {
-            get => _id;
-            set => Set(ref _id, value);
-        }       
+        public ObservableCollection<Contact> ListBoxContacts { get; set; }     
 
         #endregion
 
         #region Команды
 
-        #region CloseAplicationCommand
+        #region Команда закрытия программы
 
         public ICommand CloseAplicationCommand { get; }
 
@@ -75,6 +62,9 @@ namespace ContactApp.ViewModel
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
+                Project.Contacts = ListBoxContacts.ToList();
+                Project.Contacts = Project.ContactsById();
+                ProjectSerializer.SaveToFile(Project);
                 Application.Current.Shutdown();
             }
         }
@@ -83,6 +73,26 @@ namespace ContactApp.ViewModel
 
         #endregion
 
+        #region Команда удаления контакта
+
+        public ICommand RemoveContactCommand { get; }
+
+        private void OnRemoveContactCommandExecuted(object p)
+        {
+            if (SelectedContact != null)
+            {
+                MessageBoxResult result = MessageBox.Show($"Вы действительно хотите удалить контакт: " +
+                $"{SelectedContact.Surname + " " + SelectedContact.Name + " " + SelectedContact.Patronymic}?", "", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {                    
+                    ListBoxContacts.Remove(SelectedContact);
+                }
+            }
+        }
+
+        private bool CanRemoveContactCommandExecuted(object p) => true;
+
+        #endregion
 
 
         #endregion
@@ -91,14 +101,15 @@ namespace ContactApp.ViewModel
         {
             _project = ProjectSerializer.LoadFromFile();
 
-            CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);     
+            CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
 
-            Contacts = new ObservableCollection<Contact>();
+            RemoveContactCommand = new LambdaCommand(OnRemoveContactCommandExecuted, CanRemoveContactCommandExecuted);
 
+            ListBoxContacts = new ObservableCollection<Contact>();
             foreach (var items in _project.Contacts)
             {
-                Contacts.Add(items);
-            }            
+                ListBoxContacts.Add(items);
+            }
         }
 
 
