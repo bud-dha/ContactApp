@@ -21,7 +21,8 @@ namespace ContactApp.ViewModel
         /// Объект класса Contact.
         /// </summary>
         private Contact _selectedcontact;
-        
+
+
         /// <summary>
         /// Задает и возвращает объект класса Project.
         /// </summary>
@@ -53,23 +54,34 @@ namespace ContactApp.ViewModel
 
         #region Команды
 
-        #region Команда закрытия программы
+        #region Команда добавления контакта
 
-        public ICommand CloseAplicationCommand { get; }
+        public ICommand AddContactCommand { get; }
 
-        private void OnCloseAplicationCommandExecuted(object p)
+        private void OnAddContactCommandExecuted(object p)
         {
-            var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                Project.Contacts = ListBoxContacts.ToList();
-                Project.Contacts = Project.ContactsById();
-                ProjectSerializer.SaveToFile(Project);
-                Application.Current.Shutdown();
-            }
+            OpenContactWindowMethod(null);
         }
 
-        private bool CanCloseAplicationCommandExecut(object p) => true;
+        private bool CanAddContactCommandExecuted(object p) => true;
+
+        #endregion
+
+        #region Команда редактирования контакта
+
+        public ICommand EditContactCommand { get; }
+
+        private void OnEditContactCommandExecuted(object p)
+        {
+            if (SelectedContact == null)
+            {
+                MessageBox.Show("Выберите контакт");
+            }
+            else
+            OpenContactWindowMethod(SelectedContact);                       
+        }
+
+        private bool CanEditContactCommandExecuted(object p) => true;
 
         #endregion
 
@@ -94,6 +106,43 @@ namespace ContactApp.ViewModel
 
         #endregion
 
+        #region Команда закрытия программы
+
+        public ICommand CloseAplicationCommand { get; }
+
+        private void OnCloseAplicationCommandExecuted(object p)
+        {
+            var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Project.Contacts = ListBoxContacts.ToList();
+                Project.Contacts = Project.ContactsById();
+                ProjectSerializer.SaveToFile(Project);
+                Application.Current.Shutdown();
+            }
+        }
+
+        private bool CanCloseAplicationCommandExecut(object p) => true;
+
+        #endregion
+
+        #endregion
+
+        #region Методы
+
+        void OpenContactWindowMethod(Contact contact)
+        {
+            ContactWindow contactWindow = new ContactWindow(contact);
+            contactWindow.Owner = Application.Current.MainWindow;
+            contactWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var dialogresult = contactWindow.ShowDialog();
+            if (dialogresult == true)
+            {
+                Project.Contacts = ListBoxContacts.ToList();
+                Project.Contacts = Project.ContactsById();
+                ProjectSerializer.SaveToFile(Project);
+            }
+        }
 
         #endregion
 
@@ -101,9 +150,13 @@ namespace ContactApp.ViewModel
         {
             _project = ProjectSerializer.LoadFromFile();
 
-            CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
+            AddContactCommand = new LambdaCommand(OnAddContactCommandExecuted, CanAddContactCommandExecuted);
+
+            EditContactCommand = new LambdaCommand(OnEditContactCommandExecuted, CanEditContactCommandExecuted);
 
             RemoveContactCommand = new LambdaCommand(OnRemoveContactCommandExecuted, CanRemoveContactCommandExecuted);
+
+            CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
 
             ListBoxContacts = new ObservableCollection<Contact>();
             foreach (var items in _project.Contacts)

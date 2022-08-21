@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ContactApp"
         xmlns:vm="clr-namespace:ContactApp.ViewModel"
         mc:Ignorable="d"
-        Title="Добавить/редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png">
+        Title="Добавить/редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:ContactWindowViewModel/>
     </Window.DataContext>
@@ -49,27 +49,27 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="101*"/>
+            <ColumnDefinition Width="24*"/>
+        </Grid.ColumnDefinitions>
         <Label Content="Фамилия:" FontSize="13" FontFamily="Arial" 
                Margin="13,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                 Height="21" VerticalAlignment="Top" TextChanged="ContactWindowSurnameTextBox_TextChanged" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" FontFamily="Arial" FontSize="13" />
+        <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" 
+                 Height="21" VerticalAlignment="Top" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" FontFamily="Arial" FontSize="13" Grid.ColumnSpan="2" />
         <Label Content="Имя:"  FontSize="13" FontFamily="Arial" 
                Margin="43,62,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                 Height="21" VerticalAlignment="Top" TextChanged="ContactWindowNameTextBox_TextChanged" FontFamily="Arial" FontSize="13" />
+        <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" 
+                 Height="21" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Grid.ColumnSpan="2" />
         <Label Content="Телефон:"  FontSize="13" FontFamily="Arial" 
                Margin="14,115,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"
-                 Height="21" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" FontStyle="Italic" TextChanged="ContactWindowPhoneTextBox_TextChanged" />
+        <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" 
+                 Height="21" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" FontStyle="Italic" Grid.ColumnSpan="2" />
         <Label Content="Отчество:" FontSize="13" FontFamily="Arial" 
                Margin="12,88,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="ContactWindowPatronymicTextBox"  Margin="82,90,10,0" Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"
-                 Height="21" VerticalAlignment="Top" TextChanged="ContactWindowPatronymicTextBox_TextChanged" FontFamily="Arial" FontSize="13" />
-        <Button Content="Принять" Margin="0,0,75,13"
-                Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                Width="60" Click="ButtonOk_Click"/>
-        <Button Content="Закрыть" Margin="0,0,10,13" HorizontalAlignment="Right" 
-                Command="{Binding CloseContactWindowCommand}"
-                Width="60" Height="30" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="ContactWindowPatronymicTextBox"  Margin="82,90,10,0" 
+                 Height="21" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Grid.ColumnSpan="2" />
+        <Button Content="Принять"  Margin="0,145,10,0" HorizontalAlignment="Right" 
+                Width="60" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
     </Grid>
 </Window>
