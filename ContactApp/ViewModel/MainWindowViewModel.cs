@@ -91,7 +91,11 @@ namespace ContactApp.ViewModel
 
         private void OnRemoveContactCommandExecuted(object p)
         {
-            if (SelectedContact != null)
+            if (SelectedContact == null)
+            {
+                MessageBox.Show("Выберите контакт");
+            }
+            else
             {
                 MessageBoxResult result = MessageBox.Show($"Вы действительно хотите удалить контакт: " +
                 $"{SelectedContact.Surname + " " + SelectedContact.Name + " " + SelectedContact.Patronymic}?", "", MessageBoxButton.YesNo);
@@ -163,6 +167,7 @@ namespace ContactApp.ViewModel
             {
                 ListBoxContacts.Add(items);
             }
+
         }
 
 

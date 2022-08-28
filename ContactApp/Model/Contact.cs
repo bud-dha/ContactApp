@@ -1,10 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 
 namespace ContactApp.Model
 {   
    [Serializable]
-   public class Contact
+   public class Contact : IDataErrorInfo
     {
         /// <summary>
         /// Начальное значение Id.
@@ -14,116 +15,68 @@ namespace ContactApp.Model
         /// <summary>
         /// Id контакта.
         /// </summary>
-        private int _id;
+        public int ID { get; set; }
 
         /// <summary>
         /// Имя контакта.
         /// </summary>
-        private string _name;
+        public string Name { get; set; }
 
         /// <summary>
         /// Фамилия контакта.
         /// </summary>
-        private string _surname;
+        public string Surname { get; set; }
 
         /// <summary>
         /// Отчество уонтакта.
         /// </summary>
-        private string _patronymic;
+        public string Patronymic { get; set; }
 
         /// <summary>
         /// Номер телефона контакта.
         /// </summary>
-        private string _phone;
+        public string Phone { get; set; }
 
-        /// <summary>
-        /// Возвращает и задает ID контакта.
-        /// </summary>
-        public int ID 
-        { 
-            get => _id; 
-            set
-            { 
-                _id = value; 
-            } 
-        }
-
-        /// <summary>
-        /// Задает и возвращает имя контакта.
-        /// </summary>
-        public string Name
+        public string this[string columnName]
         {
-            get => _name;
-            set 
-            {                
-                if (isFormatCorrect(value) && value.Length < 50)
-                {
-                    _name = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Имя должно содержать от 2 до 50 символов и начинаться с большой буквы.");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Задает и возвращает фамилию контакта.
-        /// </summary>
-        public string Surname
-        {
-            get => _surname;
-            set
+            get
             {
-                if (isFormatCorrect(value) && value.Length < 50)
+                string error = String.Empty;
+                switch (columnName)
                 {
-                    _surname = value;
+                    case "Age":
+                        if (!isFormatCorrect(Name))
+                        {
+                            error = "Имя должно содержать от 2 до 50 символов и начинаться с большой буквы.";
+                        }
+                        break;
+                    case "Surname":
+                        if (!isFormatCorrect(Surname))
+                        {
+                            error = "Фамилия должна содержать от 2 до 50 символов и начинаться с большой буквы.";
+                        }
+                        break;
+                    case "Patronymic":
+                        if (!isFormatCorrect(Patronymic))
+                        {
+                            error = "Отчество должна содержать от 2 до 50 символов и начинаться с большой буквы.";
+                        }
+                        break;
+                    case "Phone":
+                        Regex regexObj = new Regex(@"[+][7][9][0-9]{9}");
+                        if (!regexObj.IsMatch(Phone) & Phone.Length != 12)
+                        {
+                            error = "Номер телефона должен соответствовать маске +79*********";
+                        }
+
+                        break;
                 }
-                else
-                {
-                    throw new ArgumentException("Фамилия должна содержать от 2 до 50 символов и начинаться с большой буквы.");
-                }
+                return error;
             }
         }
-
-        /// <summary>
-        /// Задает и возвращает отчество контакта.
-        /// </summary>
-        public string Patronymic
+            public string Error
         {
-            get => _patronymic;
-            set
-            {
-                if (value == "" | (isFormatCorrect(value) && value.Length < 50))
-                {
-                    _patronymic = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Отчество должно содержать от 2 до 50 символов и начинаться с большой буквы.");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Задает и возвращает номер контакта.
-        /// </summary>
-        public string Phone
-        {
-            get => _phone;
-            set
-            {
-                Regex regexObj = new Regex(@"[+][7][9][0-9]{9}");
-
-                if (regexObj.IsMatch(value) & value.Length == 12)
-                {
-                    _phone = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Номер телефона должен соответствовать маске +79*********");
-                }                
-            }
+            get { throw new NotImplementedException(); }
         }
 
         /// <summary>
@@ -131,7 +84,7 @@ namespace ContactApp.Model
         /// </summary>
         public Contact() 
         {
-            _id = _sid++;
+            ID = _sid++;
         }
 
         /// <summary>
