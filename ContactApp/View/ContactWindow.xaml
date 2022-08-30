@@ -60,22 +60,22 @@
         <Label Content="Фамилия:" FontSize="13" FontFamily="Arial" Margin="13,36,0,0"
                VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" FontFamily="Arial" FontSize="13" 
-                 Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" Text="{Binding NewSurname, "/>
+                 Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" Text="{Binding NewSurname, Mode=OneWayToSource}"/>
 
         <Label Content="Имя:"  FontSize="13" FontFamily="Arial" Margin="43,62,0,0"
                VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" FontSize="13" Grid.ColumnSpan="2"
-                 Height="21" VerticalAlignment="Top" FontFamily="Arial" Text="{Binding NewName, UpdateSourceTrigger=Default}" />
+                 Height="21" VerticalAlignment="Top" FontFamily="Arial" Text="{Binding NewName,  Mode=OneWayToSource}" />
 
         <Label Content="Отчество:" FontSize="13" FontFamily="Arial" Margin="12,88,0,0"
                HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
         <TextBox x:Name="ContactWindowPatronymicTextBox" Margin="82,90,10,0" FontSize="13" Grid.ColumnSpan="2"
-                 Height="21" VerticalAlignment="Top" FontFamily="Arial" Text="{Binding NewPatronymic, UpdateSourceTrigger=Default}" />
+                 Height="21" VerticalAlignment="Top" FontFamily="Arial" Text="{Binding NewPatronymic,  Mode=OneWayToSource}" />
 
         <Label Content="Телефон:"  FontSize="13" FontFamily="Arial"  Margin="14,115,0,0"
                HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
         <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" FontFamily="Times New Roman" FontSize="15"
-                 Height="21" VerticalAlignment="Top" Grid.ColumnSpan="2" Text="{Binding NewPhone, UpdateSourceTrigger=Default}" />
+                 Height="21" VerticalAlignment="Top" Grid.ColumnSpan="2" Text="{Binding NewPhone,  Mode=OneWayToSource}" />
 
         <Button Content="Принять"  Margin="0,145,10,0" HorizontalAlignment="Right" Command="{Binding AceptChangesCommand}"
                 Width="60" Height="30" VerticalAlignment="Top" Grid.Column="1" CommandParameter="{Binding ElementName=ContactWindowEdit}"/> 

@@ -82,9 +82,9 @@ namespace ContactApp.Model
         /// <summary>
         /// Создает экземпляр кдасса <see cref="Contact">
         /// </summary>
-        public Contact() 
+        public Contact()
         {
-            ID = _sid++;
+            ID = _sid++;          
         }
 
         /// <summary>

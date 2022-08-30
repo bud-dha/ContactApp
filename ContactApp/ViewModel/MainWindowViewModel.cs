@@ -24,15 +24,6 @@ namespace ContactApp.ViewModel
 
 
         /// <summary>
-        /// Задает и возвращает объект класса Project.
-        /// </summary>
-        public Project Project
-        {
-            get => _project;
-            set => Set(ref _project, value);
-        }
-
-        /// <summary>
         /// Задает и возвращает объект класса Contact.
         /// </summary>
         public Contact SelectedContact
@@ -61,6 +52,7 @@ namespace ContactApp.ViewModel
         private void OnAddContactCommandExecuted(object p)
         {
             OpenContactWindowMethod(null);
+            UpdateWindowMethod();
         }
 
         private bool CanAddContactCommandExecuted(object p) => true;
@@ -78,7 +70,8 @@ namespace ContactApp.ViewModel
                 MessageBox.Show("Выберите контакт");
             }
             else
-            OpenContactWindowMethod(SelectedContact);                       
+            OpenContactWindowMethod(SelectedContact);
+            UpdateWindowMethod();
         }
 
         private bool CanEditContactCommandExecuted(object p) => true;
@@ -119,9 +112,9 @@ namespace ContactApp.ViewModel
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                Project.Contacts = ListBoxContacts.ToList();
-                Project.Contacts = Project.ContactsById();
-                ProjectSerializer.SaveToFile(Project);
+                _project.Contacts = ListBoxContacts.ToList();
+                _project.Contacts = _project.ContactsById();
+                ProjectSerializer.SaveToFile(_project);
                 Application.Current.Shutdown();
             }
         }
@@ -142,9 +135,18 @@ namespace ContactApp.ViewModel
             var dialogresult = contactWindow.ShowDialog();
             if (dialogresult == true)
             {
-                Project.Contacts = ListBoxContacts.ToList();
-                Project.Contacts = Project.ContactsById();
-                ProjectSerializer.SaveToFile(Project);
+                _project.Contacts = ListBoxContacts.ToList();
+                _project.Contacts = _project.ContactsById();
+                ProjectSerializer.SaveToFile(_project);
+            }
+        }
+
+        void UpdateWindowMethod()
+        {
+            ListBoxContacts.Clear();
+            foreach (var items in DataTransfer.Contacts)
+            {
+                ListBoxContacts.Add(items);
             }
         }
 
@@ -152,7 +154,9 @@ namespace ContactApp.ViewModel
 
         public MainWindowViewModel()
         {
-            _project = ProjectSerializer.LoadFromFile();
+            _project = new Project();
+
+            _project.Contacts = DataTransfer.Contacts;
 
             AddContactCommand = new LambdaCommand(OnAddContactCommandExecuted, CanAddContactCommandExecuted);
 
@@ -163,7 +167,7 @@ namespace ContactApp.ViewModel
             CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
 
             ListBoxContacts = new ObservableCollection<Contact>();
-            foreach (var items in _project.Contacts)
+            foreach (var items in DataTransfer.Contacts)
             {
                 ListBoxContacts.Add(items);
             }
