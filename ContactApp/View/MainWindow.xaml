@@ -84,7 +84,7 @@
             </MenuItem>
             <MenuItem Header="Изменить">
                 <MenuItem Header="Добавить контакт" Command="{Binding AddContactCommand}"/>
-                <MenuItem Header="Изменить контакт" Command="{Binding EditContactCommand}"/>
+                <MenuItem Header="Редактировать контакт" Command="{Binding EditContactCommand}"/>
                 <MenuItem Header="Удалить контакт" Command="{Binding RemoveContactCommand}" />
             </MenuItem>
         </Menu>

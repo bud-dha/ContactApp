@@ -12,7 +12,7 @@ namespace ContactApp.Model
         /// <summary>
         /// Название файла сохранения.
         /// </summary>
-        public static string FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ContactApp\contactapp.xml";
+        private static string FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ContactApp\contactapp.xml";
         
         /// <summary>
         /// Сохраняет данные в файл.
@@ -58,6 +58,7 @@ namespace ContactApp.Model
             }
             else 
             {
+                Directory.CreateDirectory(FileName.Replace("\\contactapp.xml", ""));
                 File.Create(FileName);
                 return new Project();
             }

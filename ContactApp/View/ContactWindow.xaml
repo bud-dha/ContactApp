@@ -7,10 +7,11 @@
         xmlns:local="clr-namespace:ContactApp"
         xmlns:vm="clr-namespace:ContactApp.ViewModel"
         mc:Ignorable="d"
-        Title="Добавить/редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png" ResizeMode="NoResize">
+        Title="Добавить/Редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:ContactWindowViewModel/>
     </Window.DataContext>
+
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <Style TargetType="{x:Type TextBox}">
@@ -49,27 +50,33 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="101*"/>
             <ColumnDefinition Width="24*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Фамилия:" FontSize="13" FontFamily="Arial" 
-               Margin="13,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" 
-                 Height="21" VerticalAlignment="Top" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" FontFamily="Arial" FontSize="13" Grid.ColumnSpan="2" />
-        <Label Content="Имя:"  FontSize="13" FontFamily="Arial" 
-               Margin="43,62,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" 
-                 Height="21" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Grid.ColumnSpan="2" />
-        <Label Content="Телефон:"  FontSize="13" FontFamily="Arial" 
-               Margin="14,115,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" 
-                 Height="21" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" FontStyle="Italic" Grid.ColumnSpan="2" />
-        <Label Content="Отчество:" FontSize="13" FontFamily="Arial" 
-               Margin="12,88,0,0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
-        <TextBox x:Name="ContactWindowPatronymicTextBox"  Margin="82,90,10,0" 
-                 Height="21" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Grid.ColumnSpan="2" />
+
+        <Label Content="Фамилия:" FontSize="13" FontFamily="Arial" Margin="13,36,0,0"
+               VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="ContactWindowSurnameTextBox" Margin="82,38,10,0" FontFamily="Arial" FontSize="13" 
+                 Grid.ColumnSpan="2" Height="21" VerticalAlignment="Top" Text="{Binding NewSurname, "/>
+
+        <Label Content="Имя:"  FontSize="13" FontFamily="Arial" Margin="43,62,0,0"
+               VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="ContactWindowNameTextBox"  Margin="82,64,10,0" FontSize="13" Grid.ColumnSpan="2"
+                 Height="21" VerticalAlignment="Top" FontFamily="Arial" Text="{Binding NewName, UpdateSourceTrigger=Default}" />
+
+        <Label Content="Отчество:" FontSize="13" FontFamily="Arial" Margin="12,88,0,0"
+               HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <TextBox x:Name="ContactWindowPatronymicTextBox" Margin="82,90,10,0" FontSize="13" Grid.ColumnSpan="2"
+                 Height="21" VerticalAlignment="Top" FontFamily="Arial" Text="{Binding NewPatronymic, UpdateSourceTrigger=Default}" />
+
+        <Label Content="Телефон:"  FontSize="13" FontFamily="Arial"  Margin="14,115,0,0"
+               HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <TextBox x:Name="ContactWindowPhoneTextBox" Margin="82,117,10,0" FontFamily="Times New Roman" FontSize="15"
+                 Height="21" VerticalAlignment="Top" Grid.ColumnSpan="2" Text="{Binding NewPhone, UpdateSourceTrigger=Default}" />
+
         <Button Content="Принять"  Margin="0,145,10,0" HorizontalAlignment="Right" Command="{Binding AceptChangesCommand}"
                 Width="60" Height="30" VerticalAlignment="Top" Grid.Column="1" CommandParameter="{Binding ElementName=ContactWindowEdit}"/> 
     </Grid>
