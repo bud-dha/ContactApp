@@ -71,6 +71,7 @@ namespace ContactApp.ViewModel
             }
             else
             OpenContactWindowMethod(SelectedContact);
+            DataTransfer.Contacts.Remove(SelectedContact);
             UpdateWindowMethod();
         }
 
@@ -93,10 +94,11 @@ namespace ContactApp.ViewModel
                 MessageBoxResult result = MessageBox.Show($"Вы действительно хотите удалить контакт: " +
                 $"{SelectedContact.Surname + " " + SelectedContact.Name + " " + SelectedContact.Patronymic}?", "", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
-                {                    
-                    ListBoxContacts.Remove(SelectedContact);
+                {
+                    DataTransfer.Contacts.Remove(SelectedContact);
                 }
             }
+            SaveData();
         }
 
         private bool CanRemoveContactCommandExecuted(object p) => true;
@@ -112,9 +114,7 @@ namespace ContactApp.ViewModel
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                _project.Contacts = ListBoxContacts.ToList();
-                _project.Contacts = _project.ContactsById();
-                ProjectSerializer.SaveToFile(_project);
+                SaveData();
                 Application.Current.Shutdown();
             }
         }
@@ -127,6 +127,10 @@ namespace ContactApp.ViewModel
 
         #region Методы
 
+        /// <summary>
+        /// Открывает окно добавления/редактирования контакта.
+        /// </summary>
+        /// <param name="contact"></param>
         void OpenContactWindowMethod(Contact contact)
         {
             ContactWindow contactWindow = new ContactWindow(contact);
@@ -141,6 +145,9 @@ namespace ContactApp.ViewModel
             }
         }
 
+        /// <summary>
+        /// Обновляет данные окна.
+        /// </summary>
         void UpdateWindowMethod()
         {
             ListBoxContacts.Clear();
@@ -148,6 +155,16 @@ namespace ContactApp.ViewModel
             {
                 ListBoxContacts.Add(items);
             }
+        }
+
+        /// <summary>
+        /// Сохраняет данные в xml файл.
+        /// </summary>
+        void SaveData()
+        {
+            _project.Contacts = ListBoxContacts.ToList();
+            _project.Contacts = _project.ContactsById();
+            ProjectSerializer.SaveToFile(_project);
         }
 
         #endregion
