@@ -44,31 +44,33 @@ namespace ContactApp.Model
                 string error = String.Empty;
                 switch (columnName)
                 {
-                    case "Age":
+                    case "Name":
                         if (!isFormatCorrect(Name))
                         {
                             error = "Имя должно содержать от 2 до 50 символов и начинаться с большой буквы.";
                         }
                         break;
+
                     case "Surname":
                         if (!isFormatCorrect(Surname))
                         {
                             error = "Фамилия должна содержать от 2 до 50 символов и начинаться с большой буквы.";
                         }
                         break;
+
                     case "Patronymic":
                         if (!isFormatCorrect(Patronymic))
                         {
-                            error = "Отчество должна содержать от 2 до 50 символов и начинаться с большой буквы.";
+                            error = "Отчество должно содержать от 2 до 50 символов и начинаться с большой буквы.";
                         }
                         break;
+
                     case "Phone":
                         Regex regexObj = new Regex(@"[+][7][9][0-9]{9}");
                         if (!regexObj.IsMatch(Phone) & Phone.Length != 12)
                         {
                             error = "Номер телефона должен соответствовать маске +79*********";
                         }
-
                         break;
                 }
                 return error;

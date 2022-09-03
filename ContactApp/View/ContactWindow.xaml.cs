@@ -11,17 +11,9 @@ namespace ContactApp
     /// </summary>
     public partial class ContactWindow : Window
     {
-        public ContactWindow(Contact p)
+        public ContactWindow()
         {
             InitializeComponent();
-
-            if (p != null)
-            {                
-                ContactWindowSurnameTextBox.Text = p.Surname;
-                ContactWindowNameTextBox.Text = p.Name;
-                ContactWindowPatronymicTextBox.Text = p.Patronymic;
-                ContactWindowPhoneTextBox.Text = p.Phone;
-            }
         }
     }
 }

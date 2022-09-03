@@ -70,8 +70,7 @@ namespace ContactApp.ViewModel
                 MessageBox.Show("Выберите контакт");
             }
             else
-            OpenContactWindowMethod(SelectedContact);
-            DataTransfer.Contacts.Remove(SelectedContact);
+            OpenContactWindowMethod(SelectedContact);            
             UpdateWindowMethod();
         }
 
@@ -134,7 +133,8 @@ namespace ContactApp.ViewModel
         /// <param name="contact"></param>
         void OpenContactWindowMethod(Contact contact)
         {
-            ContactWindow contactWindow = new ContactWindow(contact);
+            DataTransfer.CurentContact = contact;
+            ContactWindow contactWindow = new ContactWindow();
             contactWindow.Owner = Application.Current.MainWindow;
             contactWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             var dialogresult = contactWindow.ShowDialog();

@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using ContactApp.Model;
-using System.Windows.Media;
 using System.Windows.Input;
 using ContactApp.ViewModel.Base;
 using ContactApp.Infrastructure.Comands;
@@ -46,12 +45,14 @@ namespace ContactApp.ViewModel
 
         private void OnAceptChangesCommandExecuted(object p)
         {
-            NewContact = new Contact();
-            NewContact.Name = NewName;
-            NewContact.Surname = NewSurname;
-            NewContact.Patronymic = NewPatronymic;
-            NewContact.Phone = NewPhone;
-            DataTransfer.Contacts.Add(NewContact);
+            if (DataTransfer.CurentContact == null)
+            {
+                AddContactMethod();
+            }
+            else 
+            {
+                EditContactMethod();
+            }            
             Window win = p as Window;
             win.Close();
         }
@@ -62,9 +63,55 @@ namespace ContactApp.ViewModel
 
         #endregion
 
+        #region Методы
+
+        /// <summary>
+        /// Обновляет форму редактирования контакта.
+        /// </summary>
+        void UpdateWindowMethod()
+        {
+            if (DataTransfer.CurentContact == null)
+            {
+                return;
+            }
+            NewName = DataTransfer.CurentContact.Name;
+            NewSurname = DataTransfer.CurentContact.Surname;
+            NewPatronymic = DataTransfer.CurentContact.Patronymic;
+            NewPhone = DataTransfer.CurentContact.Phone;
+        }
+
+        /// <summary>
+        /// Добавляет новый контакт.
+        /// </summary>
+        void AddContactMethod()
+        {
+            NewContact = new Contact();
+            NewContact.Name = NewName;
+            NewContact.Surname = NewSurname;
+            NewContact.Patronymic = NewPatronymic;
+            NewContact.Phone = NewPhone;
+            DataTransfer.Contacts.Add(NewContact);
+        }
+
+        /// <summary>
+        /// Редактирует контакт.
+        /// </summary>
+        void EditContactMethod()
+        {
+            DataTransfer.CurentContact.Name = NewName;
+            DataTransfer.CurentContact.Surname = NewSurname;
+            DataTransfer.CurentContact.Patronymic = NewPatronymic;
+            DataTransfer.CurentContact.Phone = NewPhone;
+        }
+
+        #endregion
+
         public ContactWindowViewModel()
         {
             AceptChangesCommand = new LambdaCommand(OnAceptChangesCommandExecuted, CanAceptChangesCommandExecuted);
+
+            UpdateWindowMethod();
+
         }
     }
 }
