@@ -98,7 +98,8 @@ namespace ContactApp.ViewModel
                     DataTransfer.Contacts.Remove(SelectedContact);
                 }
             }
-            SaveData();
+            UpdateWindowMethod();
+            SaveDataMethod();
         }
 
         private bool CanRemoveContactCommandExecuted(object p) => true;
@@ -114,7 +115,7 @@ namespace ContactApp.ViewModel
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                SaveData();
+                SaveDataMethod();
                 Application.Current.Shutdown();
             }
         }
@@ -139,9 +140,7 @@ namespace ContactApp.ViewModel
             var dialogresult = contactWindow.ShowDialog();
             if (dialogresult == true)
             {
-                _project.Contacts = ListBoxContacts.ToList();
-                _project.Contacts = _project.ContactsById();
-                ProjectSerializer.SaveToFile(_project);
+                SaveDataMethod();
             }
         }
 
@@ -160,7 +159,7 @@ namespace ContactApp.ViewModel
         /// <summary>
         /// Сохраняет данные в xml файл.
         /// </summary>
-        void SaveData()
+        void SaveDataMethod()
         {
             _project.Contacts = ListBoxContacts.ToList();
             _project.Contacts = _project.ContactsById();
