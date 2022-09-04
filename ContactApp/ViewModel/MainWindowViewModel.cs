@@ -53,6 +53,7 @@ namespace ContactApp.ViewModel
         {
             OpenContactWindowMethod(null);
             UpdateWindowMethod();
+            SaveDataMethod();
         }
 
         private bool CanAddContactCommandExecuted(object p) => true;
@@ -72,6 +73,7 @@ namespace ContactApp.ViewModel
             else
             OpenContactWindowMethod(SelectedContact);            
             UpdateWindowMethod();
+            SaveDataMethod();
         }
 
         private bool CanEditContactCommandExecuted(object p) => true;
@@ -113,8 +115,7 @@ namespace ContactApp.ViewModel
         {
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
-            {
-                SaveDataMethod();
+            {                
                 Application.Current.Shutdown();
             }
         }
