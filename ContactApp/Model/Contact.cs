@@ -15,7 +15,12 @@ namespace ContactApp.Model
         /// <summary>
         /// Id контакта.
         /// </summary>
-        public int ID { get; set; }
+        private int _id;
+
+        /// <summary>
+        /// Id контакта.
+        /// </summary>
+        public int ID { get=>_id; }
 
         /// <summary>
         /// Имя контакта.
@@ -86,7 +91,7 @@ namespace ContactApp.Model
         /// </summary>
         public Contact()
         {
-            ID = _sid++;          
+            _id = _sid++;          
         }
 
         /// <summary>

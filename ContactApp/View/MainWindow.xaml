@@ -150,7 +150,7 @@
                FontSize="13" Margin="55,37,0,0" FontFamily="Arial" Width="Auto"
                VerticalAlignment="Top" HorizontalAlignment="Left" />
             <TextBox x:Name="MainWindowIDTextBox" Grid.Row="2" Grid.Column="3" Margin="82,0,10,0" 
-                 Text="{Binding SelectedContact.ID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
+                 Text="{Binding SelectedContact.ID, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsReadOnly="True" 
                  VerticalAlignment="Top"  Height="21" FontFamily="Arial" FontSize="13"/>
 
             <Label Content="Фамилия:" Grid.Row="2" Grid.Column="3" FontSize="13" FontFamily="Arial" 

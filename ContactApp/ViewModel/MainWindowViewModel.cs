@@ -150,8 +150,9 @@ namespace ContactApp.ViewModel
         /// </summary>
         void UpdateWindowMethod()
         {
-            ListBoxContacts.Clear();
-            foreach (var items in DataTransfer.Contacts)
+            ListBoxContacts.Clear();                    
+            _project.Contacts = DataTransfer.Contacts;
+            foreach (var items in _project.ContactsByAlfabet())
             {
                 ListBoxContacts.Add(items);
             }
@@ -173,7 +174,7 @@ namespace ContactApp.ViewModel
         {
             _project = new Project();
 
-            _project.Contacts = DataTransfer.Contacts;
+            _project.Contacts = DataTransfer.Contacts;            
 
             AddContactCommand = new LambdaCommand(OnAddContactCommandExecuted, CanAddContactCommandExecuted);
 
@@ -189,8 +190,8 @@ namespace ContactApp.ViewModel
                 ListBoxContacts.Add(items);
             }
 
+            UpdateWindowMethod();
+
         }
-
-
     }
 }
