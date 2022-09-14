@@ -111,7 +111,6 @@ namespace ContactApp.ViewModel
             AceptChangesCommand = new LambdaCommand(OnAceptChangesCommandExecuted, CanAceptChangesCommandExecuted);
 
             UpdateWindowMethod();
-
         }
     }
 }
