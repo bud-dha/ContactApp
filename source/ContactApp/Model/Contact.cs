@@ -41,6 +41,11 @@ namespace ContactApp.Model
         public string Phone { get; set; }
 
         /// <summary>
+        /// Возвращает и задает электронную почту контакта.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
         /// Создает экземпляр кдасса <see cref="Contact">
         /// </summary>
         public Contact()

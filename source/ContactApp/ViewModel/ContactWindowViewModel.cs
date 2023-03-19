@@ -31,6 +31,11 @@ namespace ContactApp.ViewModel
         public string NewPhone { get; set; }
 
         /// <summary>
+        /// Задает и возвращает электронную почту  контакта.
+        /// </summary>
+        public string NewEmail { get; set; }
+
+        /// <summary>
         /// Задает и возвращает объект класса Contact.
         /// </summary>
         public Contact NewContact { get; set; }
@@ -78,6 +83,7 @@ namespace ContactApp.ViewModel
             NewSurname = DataTransfer.CurentContact.Surname;
             NewPatronymic = DataTransfer.CurentContact.Patronymic;
             NewPhone = DataTransfer.CurentContact.Phone;
+            NewEmail = DataTransfer.CurentContact.Email;
         }
 
         /// <summary>
@@ -90,6 +96,7 @@ namespace ContactApp.ViewModel
             NewContact.Surname = NewSurname;
             NewContact.Patronymic = NewPatronymic;
             NewContact.Phone = NewPhone;
+            NewContact.Email = NewEmail;
             DataTransfer.Contacts.Add(NewContact);
         }
 
@@ -102,6 +109,7 @@ namespace ContactApp.ViewModel
             DataTransfer.CurentContact.Surname = NewSurname;
             DataTransfer.CurentContact.Patronymic = NewPatronymic;
             DataTransfer.CurentContact.Phone = NewPhone;
+            DataTransfer.CurentContact.Email = NewEmail;
         }
 
         #endregion

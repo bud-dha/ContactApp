@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ContactApp"
         xmlns:vm="clr-namespace:ContactApp.ViewModel"
         mc:Ignorable="d"
-        Title="Добавить/Редактировать контакт" Height="230" Width="500" MinHeight="230" MinWidth="500" Icon="\Resources\Images\icons8-edit-48.png" ResizeMode="NoResize">
+        Title="Добавить/Редактировать контакт" Height="194" Width="484" MinHeight="253" MinWidth="550" Icon="\Resources\Images\icons8-edit-48.png" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:ContactWindowViewModel/>
     </Window.DataContext>
@@ -50,7 +50,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="101*"/>
@@ -81,7 +81,12 @@
                  Height="21" VerticalAlignment="Top" Grid.ColumnSpan="2" Text="{Binding NewPhone,  Mode=TwoWay}" 
                  ToolTip="Номер телефона должен соответствовать маске +79*********"/>
 
-        <Button Content="Принять"  Margin="0,145,10,0" HorizontalAlignment="Right" Command="{Binding AceptChangesCommand}"
-                Width="60" Height="30" VerticalAlignment="Top" Grid.Column="1" CommandParameter="{Binding ElementName=ContactWindowEdit}"/> 
+        <Label Content="Почта:"  FontSize="13" FontFamily="Arial"  Margin="32,142,0,0"
+               HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Top"/>
+        <TextBox x:Name="ContactWindowEmailTextBox" Margin="82,145,10,0" FontFamily="Times New Roman" FontSize="15"
+                 Height="21" VerticalAlignment="Top" Grid.ColumnSpan="2" Text="{Binding NewEmail,  Mode=TwoWay}"/>
+
+        <Button Content="Принять"  Margin="0,174,10,0" HorizontalAlignment="Right" Command="{Binding AceptChangesCommand}"
+                Width="60" Height="30" VerticalAlignment="Top" Grid.Column="1" CommandParameter="{Binding ElementName=ContactWindowEdit}"/>
     </Grid>
 </Window>
