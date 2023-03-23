@@ -182,7 +182,7 @@
         <TextBox x:Name="MainWindowEmailTextBox" Grid.Column="3" Grid.Row="2" Margin="82,131,10,0" 
                      Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}" Height="21" 
                      VerticalAlignment="Top" IsReadOnly="True" FontFamily="Arial" FontSize="13"/>
-        <Image x:Name="QrCode" Grid.Column="3" Margin="176,164,176,10" Grid.Row="2"/>
+        <Image x:Name="QrCode" Grid.Column="3" Margin="176,164,176,10" Grid.Row="2" Source="Images/Торпуджиян.JPEG"/>
 
     </Grid>
 

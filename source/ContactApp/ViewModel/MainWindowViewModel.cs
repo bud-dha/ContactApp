@@ -1,15 +1,9 @@
-﻿using ZXing;
-using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
-using System.Drawing;
 using ContactApp.Model;
 using System.Windows.Input;
-using System.Windows.Interop;
 using ContactApp.ViewModel.Base;
-using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using ContactApp.Infrastructure.Comands;
 
 namespace ContactApp.ViewModel
@@ -173,35 +167,6 @@ namespace ContactApp.ViewModel
             _project.Contacts = _project.ContactsById();
             ProjectSerializer.SaveToFile(_project);
         }
-
-        #region QRCode
-
-        void CreateQrCode()
-        {
-            var writer = new BarcodeWriter { };
-            var text = _selectedcontact.Email;
-            var bitmap = writer.Write(text);
-            QrCode.Source = BitmapToImageSource(bitmap);
-        }
-
-        BitmapSource BitmapToImageSource(Bitmap bitmap)
-        {
-            var handle = bitmap.GetHbitmap();
-            try
-            {
-                return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            }
-            finally
-            {
-                DeleteObject(handle);
-            }
-        }
-
-        [DllImport("gdi32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool DeleteObject(IntPtr hObject);
-
-        #endregion
 
         #endregion
 

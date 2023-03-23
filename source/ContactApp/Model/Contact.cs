@@ -46,11 +46,16 @@ namespace ContactApp.Model
         public string Email { get; set; }
 
         /// <summary>
+        /// Возвращает и задает qr-code контакта.
+        /// </summary>
+        public string QrCode { get; set; }
+
+        /// <summary>
         /// Создает экземпляр кдасса <see cref="Contact">
         /// </summary>
         public Contact()
         {
-            _id = _sid++;          
+            _id = _sid++;
         }        
     }
 }
