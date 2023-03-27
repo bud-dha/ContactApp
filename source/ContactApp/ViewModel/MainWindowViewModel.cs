@@ -1,8 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using QRCoder;
+using System.IO;
+using System.Linq;
+using System.Drawing;
 using System.Windows;
 using ContactApp.Model;
 using System.Windows.Input;
+using System.Drawing.Imaging;
 using ContactApp.ViewModel.Base;
+using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using ContactApp.Infrastructure.Comands;
 
@@ -37,9 +43,14 @@ namespace ContactApp.ViewModel
         }
 
         /// <summary>
+        /// Задает и возвращает Qr-код контакта.
+        /// </summary>
+        public BitmapImage QrCodeImage { get; set; }
+
+        /// <summary>
         /// Звдает и возвращает спиcок контактов выводимых на ListBox.
         /// </summary>
-        public ObservableCollection<Contact> ListBoxContacts { get; set; }     
+        public ObservableCollection<Contact> ListBoxContacts { get; set; }
 
         #endregion
 
@@ -52,6 +63,7 @@ namespace ContactApp.ViewModel
         private void OnAddContactCommandExecuted(object p)
         {
             OpenContactWindowMethod(null);
+            AddQrCode();
             UpdateWindowMethod();
             SaveDataMethod();
         }
@@ -71,7 +83,8 @@ namespace ContactApp.ViewModel
                 MessageBox.Show("Выберите контакт");
             }
             else
-            OpenContactWindowMethod(SelectedContact);            
+            OpenContactWindowMethod(SelectedContact);
+            AddQrCode();
             UpdateWindowMethod();
             SaveDataMethod();
         }
@@ -166,6 +179,37 @@ namespace ContactApp.ViewModel
             _project.Contacts = ListBoxContacts.ToList();
             _project.Contacts = _project.ContactsById();
             ProjectSerializer.SaveToFile(_project);
+        }
+
+        void AddQrCode()
+        {
+            if (SelectedContact == null) return;
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode($"mailto:{SelectedContact.Email}", QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+
+            MemoryStream memoryStream = new MemoryStream();
+            qrCodeImage.Save(memoryStream, ImageFormat.Png);
+
+            QrCodeImage = new BitmapImage();
+            QrCodeImage.BeginInit();
+            QrCodeImage.StreamSource = new MemoryStream(memoryStream.ToArray());
+            QrCodeImage.EndInit();
+
+            string qrCodePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "QrCodes");
+            if (!Directory.Exists(qrCodePath))
+                Directory.CreateDirectory(qrCodePath);
+
+            string qrCodeFileName = $"{SelectedContact.Surname}_{SelectedContact.Name}.png";
+            SelectedContact.QrCode = Path.Combine(qrCodePath, qrCodeFileName);
+            using (var fileStream = new FileStream(SelectedContact.QrCode, FileMode.Create))
+            {
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(QrCodeImage));
+                encoder.Save(fileStream);
+            }
         }
 
         #endregion

@@ -31,9 +31,9 @@ namespace ContactApp.ViewModel
         public string NewPhone { get; set; }
 
         /// <summary>
-        /// Задает и возвращает электронную почту  контакта.
+        /// Задает и возвращает электронную почту контакта.
         /// </summary>
-        public string NewEmail { get; set; }
+        public string NewEmail { get; set; }        
 
         /// <summary>
         /// Задает и возвращает объект класса Contact.
@@ -111,6 +111,7 @@ namespace ContactApp.ViewModel
             DataTransfer.CurentContact.Phone = NewPhone;
             DataTransfer.CurentContact.Email = NewEmail;
         }
+
 
         #endregion
 

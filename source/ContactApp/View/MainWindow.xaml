@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ContactApp.ViewModel"
+        xmlns:cv="clr-namespace:ContactApp.Model"
         mc:Ignorable="d"
         Title="ContactApp" Height="450" Width="800" MinHeight="450" MinWidth="800" Icon="\Resources\Images\icons8-contacts-30.png">
 
@@ -182,7 +183,8 @@
         <TextBox x:Name="MainWindowEmailTextBox" Grid.Column="3" Grid.Row="2" Margin="82,131,10,0" 
                      Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}" Height="21" 
                      VerticalAlignment="Top" IsReadOnly="True" FontFamily="Arial" FontSize="13"/>
-        <Image x:Name="QrCode" Grid.Column="3" Margin="176,164,176,10" Grid.Row="2" Source="Images/Торпуджиян.JPEG"/>
+        <Image x:Name="QrCode" Grid.Column="3" Margin="176,164,176,10" Grid.Row="2" 
+               Source="{Binding SelectedContact.QrCode, UpdateSourceTrigger=PropertyChanged}"/>
 
     </Grid>
 

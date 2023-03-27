@@ -30,4 +30,8 @@
     <Resource Include="Resources\Images\icons8-remove-48.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\QrCodes\" />
+  </ItemGroup>
+
 </Project>

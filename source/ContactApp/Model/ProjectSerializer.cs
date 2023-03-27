@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using ContactApp.Core;
 using System.Xml.Serialization;
 
 namespace ContactApp.Model
@@ -13,7 +12,7 @@ namespace ContactApp.Model
         /// <summary>
         /// Название файла сохранения.
         /// </summary>
-        private static string FileName = ProjectInformationHelper.ContactAppSerializerPath;
+        private static string FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ContactApp\contactapp.xml";
         
         /// <summary>
         /// Сохраняет данные в файл.
