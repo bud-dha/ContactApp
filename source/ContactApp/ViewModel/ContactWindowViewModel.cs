@@ -1,15 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using ContactApp.Model;
-using System.Windows.Media;
 using System.Windows.Input;
-using Gma.QrCodeNet.Encoding;
 using ContactApp.ViewModel.Base;
-using System.Windows.Media.Imaging;
 using ContactApp.Infrastructure.Comands;
-using Gma.QrCodeNet.Encoding.Windows.Render;
-using ContactApp.Core;
 
 namespace ContactApp.ViewModel
 {
@@ -64,8 +57,7 @@ namespace ContactApp.ViewModel
             else 
             {
                 EditContactMethod();
-            }
-            GenerateQrCode();
+            }            
             Window win = p as Window;
             win.Close();
         }
@@ -119,29 +111,6 @@ namespace ContactApp.ViewModel
             DataTransfer.CurentContact.Phone = NewPhone;
             DataTransfer.CurentContact.Email = NewEmail;
         }
-
-        /// <summary>
-        /// Генерирует qr-code.
-        /// </summary>
-        void GenerateQrCode()
-        {
-            QrEncoder encoder = new QrEncoder(ErrorCorrectionLevel.M);
-            QrCode qrCode = new QrCode();
-            var fileName = Path.Combine(ProjectInformationHelper.ContactAppImagesPath, $"{NewSurname}.JPEG");
-
-            encoder.TryEncode(NewEmail, out qrCode);
-            WriteableBitmapRenderer wRenderer = new WriteableBitmapRenderer(new FixedModuleSize(2, QuietZoneModules.Two), Colors.Black, Colors.White);
-            WriteableBitmap wBitmap = new WriteableBitmap(58, 58, 240, 240, PixelFormats.Gray8, null);
-            wRenderer.Draw(wBitmap, qrCode.Matrix);
-
-            using (var fileStream = new FileStream(fileName, FileMode.Create))
-            {
-                BitmapEncoder encoder2 = new PngBitmapEncoder();
-                encoder2.Frames.Add(BitmapFrame.Create(wBitmap));
-                encoder2.Save(fileStream);
-            }
-        }
-               
 
         #endregion
 
