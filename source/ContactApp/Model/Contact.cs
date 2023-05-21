@@ -56,6 +56,6 @@ namespace ContactApp.Model
         public Contact()
         {
             _id = _sid++;
-        }        
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace ContactApp.ViewModel
 {
     class ContactWindowViewModel : ViewModelBase
     {
-        #region Свойства
+        #region Свойства класса
 
         /// <summary>
         /// Задает и возвращает имя контакта.
@@ -33,7 +33,7 @@ namespace ContactApp.ViewModel
         /// <summary>
         /// Задает и возвращает электронную почту контакта.
         /// </summary>
-        public string NewEmail { get; set; }        
+        public string NewEmail { get; set; }
 
         /// <summary>
         /// Задает и возвращает объект класса Contact.
@@ -42,33 +42,7 @@ namespace ContactApp.ViewModel
 
         #endregion
 
-        #region Команды
-
-        #region Команда принятия изменений
-
-        public ICommand AceptChangesCommand { get; }
-
-        private void OnAceptChangesCommandExecuted(object p)
-        {
-            if (DataTransfer.CurentContact == null)
-            {
-                AddContactMethod();
-            }
-            else 
-            {
-                EditContactMethod();
-            }            
-            Window win = p as Window;
-            win.Close();
-        }
-
-        private bool CanAceptChangesCommandExecuted(object p) => true;
-
-        #endregion
-
-        #endregion
-
-        #region Методы
+        #region Методы класса
 
         /// <summary>
         /// Обновляет форму редактирования контакта.
@@ -112,6 +86,32 @@ namespace ContactApp.ViewModel
             DataTransfer.CurentContact.Email = NewEmail;
         }
 
+
+        #endregion
+
+        #region Команды
+
+        #region Команда принятия изменений
+
+        public ICommand AceptChangesCommand { get; }
+
+        private void OnAceptChangesCommandExecuted(object p)
+        {
+            if (DataTransfer.CurentContact == null)
+            {
+                AddContactMethod();
+            }
+            else 
+            {
+                EditContactMethod();
+            }            
+            Window win = p as Window;
+            win.Close();
+        }
+
+        private bool CanAceptChangesCommandExecuted(object p) => true;
+
+        #endregion
 
         #endregion
 

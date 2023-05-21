@@ -20,7 +20,6 @@ namespace ContactApp.Model
         /// <param name="project"></param>
         public static void SaveToFile(Project project)
         {
-
             XmlSerializer xml = new XmlSerializer(typeof (Project));
             using (var sw = new StreamWriter(FileName, false))
             {
@@ -40,7 +39,7 @@ namespace ContactApp.Model
         /// </summary>
         /// <returns></returns>
         public static Project LoadFromFile()
-        {            
+        {
             XmlSerializer xml = new XmlSerializer(typeof(Project));
             if (File.Exists(FileName))
             {
@@ -62,7 +61,6 @@ namespace ContactApp.Model
                 File.Create(FileName);
                 return new Project();
             }
-                  
         }
     }
 }

@@ -1,24 +1,26 @@
 ﻿using System;
-using QRCoder;
 using System.IO;
 using System.Linq;
 using System.Drawing;
 using System.Windows;
-using ContactApp.Model;
+using System.Diagnostics;
 using System.Windows.Input;
 using System.Drawing.Imaging;
-using ContactApp.ViewModel.Base;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
+using QRCoder;
+using ContactApp.Model;
+using ContactApp.ViewModel.Base;
 using ContactApp.Infrastructure.Comands;
 
 namespace ContactApp.ViewModel
 {   
     class MainWindowViewModel : ViewModelBase
     {
-        #region Свойства
 
-        /// <summary>
+        #region Поля класса
+
+        // <summary>
         /// Объект класса Project.
         /// </summary>
         private Project _project;
@@ -28,6 +30,9 @@ namespace ContactApp.ViewModel
         /// </summary>
         private Contact _selectedcontact;
 
+        #endregion
+
+        #region Свойства класса
 
         /// <summary>
         /// Задает и возвращает объект класса Contact.
@@ -54,6 +59,92 @@ namespace ContactApp.ViewModel
 
         #endregion
 
+        #region Методы класса
+
+        /// <summary>
+        /// Открывает окно добавления/редактирования контакта.
+        /// </summary>
+        /// <param name="contact"></param>
+        void OpenContactWindowMethod(Contact contact)
+        {
+            DataTransfer.CurentContact = contact;
+            ContactWindow contactWindow = new ContactWindow();
+            contactWindow.Owner = Application.Current.MainWindow;
+            contactWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var dialogresult = contactWindow.ShowDialog();
+            if (dialogresult == true)
+            {
+                SaveDataMethod();
+            }
+        }
+
+        /// <summary>
+        /// Обновляет данные окна.
+        /// </summary>
+        void UpdateWindowMethod()
+        {
+            ListBoxContacts.Clear();
+            _project.Contacts = DataTransfer.Contacts;
+            foreach (var items in _project.ContactsByAlfabet())
+            {
+                ListBoxContacts.Add(items);
+            }
+        }
+
+        /// <summary>
+        /// Сохраняет данные в xml файл.
+        /// </summary>
+        void SaveDataMethod()
+        {
+            _project.Contacts = ListBoxContacts.ToList();
+            _project.Contacts = _project.ContactsById();
+            ProjectSerializer.SaveToFile(_project);
+        }
+
+        /// <summary>
+        /// Генерирует и сохраняет qr-код.
+        /// </summary>
+        void AddQrCodeMethod()
+        {
+            if (SelectedContact == null || SelectedContact.Email == null) return;
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(SelectedContact.Email, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+
+            MemoryStream memoryStream = new MemoryStream();
+            qrCodeImage.Save(memoryStream, ImageFormat.Png);
+
+            QrCodeImage = new BitmapImage();
+            QrCodeImage.BeginInit();
+            QrCodeImage.StreamSource = new MemoryStream(memoryStream.ToArray());
+            QrCodeImage.EndInit();
+
+            SaveQrCode();
+        }
+
+        /// <summary>
+        /// Сохраняет Qr-код контакта.
+        /// </summary>
+        void SaveQrCode()
+        {
+            string qrCodePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "QrCodes");
+            if (!Directory.Exists(qrCodePath))
+                Directory.CreateDirectory(qrCodePath);
+
+            string qrCodeFileName = $"{SelectedContact.Surname}_{SelectedContact.Name}.png";
+            SelectedContact.QrCode = Path.Combine(qrCodePath, qrCodeFileName);
+            using (var fileStream = new FileStream(SelectedContact.QrCode, FileMode.Create))
+            {
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(QrCodeImage));
+                encoder.Save(fileStream);
+            }
+        }
+
+        #endregion
+
         #region Команды
 
         #region Команда добавления контакта
@@ -63,7 +154,7 @@ namespace ContactApp.ViewModel
         private void OnAddContactCommandExecuted(object p)
         {
             OpenContactWindowMethod(null);
-            AddQrCode();
+            AddQrCodeMethod();
             UpdateWindowMethod();
             SaveDataMethod();
         }
@@ -84,7 +175,7 @@ namespace ContactApp.ViewModel
             }
             else
             OpenContactWindowMethod(SelectedContact);
-            AddQrCode();
+            AddQrCodeMethod();
             UpdateWindowMethod();
             SaveDataMethod();
         }
@@ -137,80 +228,18 @@ namespace ContactApp.ViewModel
 
         #endregion
 
+        #region Команда открытия ссылки
+
+        public ICommand OpenLinkCommand { get; }
+
+        private void OnOpenLinkCommandExecuted(object p)
+        {
+            Process.Start(new ProcessStartInfo(SelectedContact.QrCode) { UseShellExecute = true });
+        }
+
+        private bool CanOpenLinkCommandExecut(object p) => true;
+
         #endregion
-
-        #region Методы
-
-        /// <summary>
-        /// Открывает окно добавления/редактирования контакта.
-        /// </summary>
-        /// <param name="contact"></param>
-        void OpenContactWindowMethod(Contact contact)
-        {
-            DataTransfer.CurentContact = contact;
-            ContactWindow contactWindow = new ContactWindow();
-            contactWindow.Owner = Application.Current.MainWindow;
-            contactWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            var dialogresult = contactWindow.ShowDialog();
-            if (dialogresult == true)
-            {
-                SaveDataMethod();
-            }
-        }
-
-        /// <summary>
-        /// Обновляет данные окна.
-        /// </summary>
-        void UpdateWindowMethod()
-        {
-            ListBoxContacts.Clear();                    
-            _project.Contacts = DataTransfer.Contacts;
-            foreach (var items in _project.ContactsByAlfabet())
-            {
-                ListBoxContacts.Add(items);
-            }
-        }
-
-        /// <summary>
-        /// Сохраняет данные в xml файл.
-        /// </summary>
-        void SaveDataMethod()
-        {
-            _project.Contacts = ListBoxContacts.ToList();
-            _project.Contacts = _project.ContactsById();
-            ProjectSerializer.SaveToFile(_project);
-        }
-
-        void AddQrCode()
-        {
-            if (SelectedContact == null) return;
-
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode($"mailto:{SelectedContact.Email}", QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-
-            MemoryStream memoryStream = new MemoryStream();
-            qrCodeImage.Save(memoryStream, ImageFormat.Png);
-
-            QrCodeImage = new BitmapImage();
-            QrCodeImage.BeginInit();
-            QrCodeImage.StreamSource = new MemoryStream(memoryStream.ToArray());
-            QrCodeImage.EndInit();
-
-            string qrCodePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "QrCodes");
-            if (!Directory.Exists(qrCodePath))
-                Directory.CreateDirectory(qrCodePath);
-
-            string qrCodeFileName = $"{SelectedContact.Surname}_{SelectedContact.Name}.png";
-            SelectedContact.QrCode = Path.Combine(qrCodePath, qrCodeFileName);
-            using (var fileStream = new FileStream(SelectedContact.QrCode, FileMode.Create))
-            {
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(QrCodeImage));
-                encoder.Save(fileStream);
-            }
-        }
 
         #endregion
 
@@ -227,6 +256,8 @@ namespace ContactApp.ViewModel
             RemoveContactCommand = new LambdaCommand(OnRemoveContactCommandExecuted, CanRemoveContactCommandExecuted);
 
             CloseAplicationCommand = new LambdaCommand(OnCloseAplicationCommandExecuted, CanCloseAplicationCommandExecut);
+
+            OpenLinkCommand = new LambdaCommand(OnOpenLinkCommandExecuted, CanOpenLinkCommandExecut);
 
             ListBoxContacts = new ObservableCollection<Contact>();
             foreach (var items in DataTransfer.Contacts)
