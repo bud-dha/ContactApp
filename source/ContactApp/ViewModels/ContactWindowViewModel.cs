@@ -86,7 +86,6 @@ namespace ContactApp.ViewModel
             DataTransfer.CurentContact.Email = NewEmail;
         }
 
-
         #endregion
 
         #region Команды

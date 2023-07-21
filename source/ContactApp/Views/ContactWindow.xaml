@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
     
-        Title="Добавить/Редактировать контакт" Height="250" Width="500" Icon="\Resources\Images\icons8-edit-48.png" ResizeMode="NoResize" >
+        Title="Добавить/Редактировать контакт" Height="270" Width="500" Icon="\Resources\Images\icons8-edit-48.png" ResizeMode="NoResize">
 
     <!--#region DataContext-->
     
@@ -30,46 +30,53 @@
 
     <!--#endregion-->
 
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="75"/>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+    <Grid Background="{StaticResource MainBackground}">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="5"/>
-            <RowDefinition/>
-            <RowDefinition Height="5"/>
-            <RowDefinition/>
-            <RowDefinition Height="5"/>
-            <RowDefinition />
-            <RowDefinition Height="5"/>
-            <RowDefinition />
-            <RowDefinition Height="5"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
 
-        <Label Content="Фамилия" FontSize="15" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" x:Name="ContactWindowSurnameTextBox" FontSize="15" Text="{Binding NewSurname, Mode=TwoWay}"
-                 ToolTip="Фамилия должна содержать от 2 до 50 символов и начинаться с большой буквы."/>
+            <Label Content="Фамилия" FontSize="15" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" FontSize="15" Background="Transparent" BorderBrush="Black" BorderThickness="0.5"
+                     VerticalContentAlignment="Center" ToolTip="Фамилия должна содержать от 2 до 50 символов и начинаться с большой буквы."
+                     Text="{Binding NewSurname, Mode=TwoWay}"/>
 
-        <Label Grid.Row="2" Content="Имя" FontSize="15" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="2" x:Name="ContactWindowNameTextBox" FontSize="15" Text="{Binding NewName, Mode=TwoWay}" 
-                 ToolTip="Имя должно содержать от 2 до 50 символов и начинаться с большой буквы."/>
+            <Label Grid.Row="2" Content="Имя" FontSize="15" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="2" FontSize="15" Background="Transparent" BorderBrush="Black" BorderThickness="0.5"
+                     VerticalContentAlignment="Center" ToolTip="Имя должно содержать от 2 до 50 символов и начинаться с большой буквы." 
+                     Text="{Binding NewName, Mode=TwoWay}"/>
 
-        <Label Grid.Row="4" Content="Отчество" FontSize="15" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="4" x:Name="ContactWindowPatronymicTextBox" FontSize="15" Text="{Binding NewPatronymic, Mode=TwoWay}" 
-                 ToolTip="Отчество должно содержать от 2 до 50 символов и начинаться с большой буквы."/>
+            <Label Grid.Row="4" Content="Отчество" FontSize="15" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="4" FontSize="15" Background="Transparent" BorderBrush="Black" BorderThickness="0.5"
+                     VerticalContentAlignment="Center" ToolTip="Отчество должно содержать от 2 до 50 символов и начинаться с большой буквы." 
+                     Text="{Binding NewPatronymic, Mode=TwoWay}"/>
 
-        <Label Grid.Row="6" Content="Телефон" FontSize="15" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="6" x:Name="ContactWindowPhoneTextBox" FontSize="15" Text="{Binding NewPhone, Mode=TwoWay}" 
-                 ToolTip="Номер телефона должен соответствовать маске +79*********"/>
+            <Label Grid.Row="6" Content="Телефон" FontSize="15" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="6" FontSize="15" Background="Transparent" BorderBrush="Black" BorderThickness="0.5"
+                     VerticalContentAlignment="Center" ToolTip="Номер телефона должен соответствовать маске +79*********"
+                     Text="{Binding NewPhone, Mode=TwoWay}"/>
 
-        <Label Grid.Row="8" Content="Почта" FontSize="15" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="8" x:Name="ContactWindowEmailTextBox" FontSize="15" Text="{Binding NewEmail, Mode=TwoWay}"/>
+            <Label Grid.Row="8" Content="Почта" FontSize="15" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="8" FontSize="15" Background="Transparent" BorderBrush="Black" BorderThickness="0.5"
+                     VerticalContentAlignment="Center" Text="{Binding NewEmail, Mode=TwoWay}"/>
 
-        <Button Grid.Row="10" Grid.ColumnSpan="2" Content="Принять" HorizontalAlignment="Right" Width="70" Height="30"
-                Command="{Binding AceptChangesCommand}" CommandParameter="{Binding ElementName=ContactWindowEdit}"/>
+            <Button Grid.Row="10" Grid.ColumnSpan="2" Content="Принять" HorizontalAlignment="Right" Width="70" Height="30" Background="Transparent" BorderBrush="Black"
+                    BorderThickness="0.5" Command="{Binding AceptChangesCommand}" CommandParameter="{Binding ElementName=ContactWindowEdit}"/>
+        </Grid>
     </Grid>
 </Window>
