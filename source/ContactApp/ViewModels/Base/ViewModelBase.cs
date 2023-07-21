@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 namespace ContactApp.ViewModel.Base
-{    
+{
     /// <summary>
     /// Шаблон класса ViewModel.
     /// </summary>
@@ -17,7 +17,7 @@ namespace ContactApp.ViewModel.Base
         /// Гененрирует событие. 
         /// </summary>
         /// <param name="PropertyName">Имя свойства.</param>
-        protected virtual void OnPropertyChanged([CallerMemberName]string PropertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }

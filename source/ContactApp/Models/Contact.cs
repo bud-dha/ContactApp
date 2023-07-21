@@ -1,9 +1,9 @@
 ﻿using System;
 
 namespace ContactApp.Model
-{   
-   [Serializable]
-   public class Contact 
+{
+    [Serializable]
+    public class Contact
     {
         /// <summary>
         /// Начальное значение Id.
@@ -18,7 +18,7 @@ namespace ContactApp.Model
         /// <summary>
         /// Id контакта.
         /// </summary>
-        public int ID { get=>_id; }
+        public int ID { get => _id; }
 
         /// <summary>
         /// Имя контакта.

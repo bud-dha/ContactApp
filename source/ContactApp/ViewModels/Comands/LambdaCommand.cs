@@ -1,5 +1,5 @@
-﻿using System;
-using ContactApp.Infrastructure.Comands.Base;
+﻿using ContactApp.Infrastructure.Comands.Base;
+using System;
 
 namespace ContactApp.Infrastructure.Comands
 {
@@ -13,7 +13,6 @@ namespace ContactApp.Infrastructure.Comands
         {
             _Execute = Execute ?? throw new ArgumentException(nameof(Execute));
             _CanExecute = CanExecute;
-
         }
 
         public override bool CanExecute(object parameter) => _CanExecute?.Invoke(parameter) ?? true;

@@ -1,23 +1,22 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Drawing;
-using System.Windows;
-using System.Diagnostics;
-using System.Windows.Input;
-using System.Drawing.Imaging;
-using System.Windows.Media.Imaging;
-using System.Collections.ObjectModel;
-using QRCoder;
+﻿using ContactApp.Infrastructure.Comands;
 using ContactApp.Model;
 using ContactApp.ViewModel.Base;
-using ContactApp.Infrastructure.Comands;
+using QRCoder;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace ContactApp.ViewModel
-{   
+{
     class MainWindowViewModel : ViewModelBase
     {
-
         #region Поля класса
 
         // <summary>
@@ -40,7 +39,7 @@ namespace ContactApp.ViewModel
         public Contact SelectedContact
         {
             get => _selectedcontact;
-            set 
+            set
             {
                 _selectedcontact = value;
                 OnPropertyChanged("SelectedContact");
@@ -174,7 +173,7 @@ namespace ContactApp.ViewModel
                 MessageBox.Show("Выберите контакт");
             }
             else
-            OpenContactWindowMethod(SelectedContact);
+                OpenContactWindowMethod(SelectedContact);
             AddQrCodeMethod();
             UpdateWindowMethod();
             SaveDataMethod();
@@ -219,7 +218,7 @@ namespace ContactApp.ViewModel
         {
             var result = MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
-            {                
+            {
                 Application.Current.Shutdown();
             }
         }
@@ -260,13 +259,13 @@ namespace ContactApp.ViewModel
             OpenLinkCommand = new LambdaCommand(OnOpenLinkCommandExecuted, CanOpenLinkCommandExecut);
 
             ListBoxContacts = new ObservableCollection<Contact>();
+
             foreach (var items in DataTransfer.Contacts)
             {
                 ListBoxContacts.Add(items);
             }
 
             UpdateWindowMethod();
-
         }
     }
 }

@@ -12,22 +12,22 @@ namespace ContactApp.Model
         /// <summary>
         /// Название файла сохранения.
         /// </summary>
-        private static string FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ContactApp\contactapp.xml";
-        
+        private static string FileName = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\ContactApp\\contactapp.xml";
+
         /// <summary>
         /// Сохраняет данные в файл.
         /// </summary>
         /// <param name="project"></param>
         public static void SaveToFile(Project project)
         {
-            XmlSerializer xml = new XmlSerializer(typeof (Project));
+            XmlSerializer xml = new XmlSerializer(typeof(Project));
             using (var sw = new StreamWriter(FileName, false))
             {
                 try
                 {
                     xml.Serialize(sw, project);
                 }
-                catch 
+                catch
                 {
                     throw new ArgumentException("Не удалось записать данные в файл");
                 }
@@ -43,19 +43,21 @@ namespace ContactApp.Model
             XmlSerializer xml = new XmlSerializer(typeof(Project));
             if (File.Exists(FileName))
             {
+                if (File.ReadAllLines(FileName).Length == 0) return new Project();
                 using (FileStream fs2 = new FileStream(FileName, FileMode.Open))
                 {
+                    
                     try
                     {
                         return xml.Deserialize(fs2) as Project;
                     }
                     catch
                     {
-                        throw new ArgumentException("Ошибка. Файл проекта был не правильно сохранен.");                        
+                        throw new ArgumentException("Ошибка. Файл проекта был не правильно сохранен.");
                     }
                 }
             }
-            else 
+            else
             {
                 Directory.CreateDirectory(FileName.Replace("\\contactapp.xml", ""));
                 File.Create(FileName);

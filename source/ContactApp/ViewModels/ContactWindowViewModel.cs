@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using ContactApp.Infrastructure.Comands;
 using ContactApp.Model;
-using System.Windows.Input;
 using ContactApp.ViewModel.Base;
-using ContactApp.Infrastructure.Comands;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ContactApp.ViewModel
 {
@@ -101,10 +101,10 @@ namespace ContactApp.ViewModel
             {
                 AddContactMethod();
             }
-            else 
+            else
             {
                 EditContactMethod();
-            }            
+            }
             Window win = p as Window;
             win.Close();
         }
