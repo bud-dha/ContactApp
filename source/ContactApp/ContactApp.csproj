@@ -33,5 +33,4 @@
   <ItemGroup>
     <Folder Include="Resources\QrCodes\" />
   </ItemGroup>
-
 </Project>
