@@ -46,7 +46,7 @@ namespace ContactApp.Model
                 if (File.ReadAllLines(FileName).Length == 0) return new Project();
                 using (FileStream fs2 = new FileStream(FileName, FileMode.Open))
                 {
-                    
+
                     try
                     {
                         return xml.Deserialize(fs2) as Project;

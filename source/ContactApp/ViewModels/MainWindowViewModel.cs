@@ -66,7 +66,6 @@ namespace ContactApp.ViewModel
         /// <param name="contact"></param>
         void OpenContactWindowMethod(Contact contact)
         {
-            SelectedContact.QrCode = null;
             DataTransfer.CurentContact = contact;
             ContactWindow contactWindow = new ContactWindow();
             contactWindow.Owner = Application.Current.MainWindow;
@@ -130,14 +129,13 @@ namespace ContactApp.ViewModel
         void SaveQrCode()
         {
             string qrCodePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "QrCodes");
-
             if (!Directory.Exists(qrCodePath))
                 Directory.CreateDirectory(qrCodePath);
 
-            string qrCodeFileName = $"{DataTransfer.CurentContact.Surname}_{DataTransfer.CurentContact.Name}.png";
-            DataTransfer.CurentContact.QrCode = Path.Combine(qrCodePath, qrCodeFileName);
+            string qrCodeFileName = $"{SelectedContact.Surname}_{SelectedContact.Name}.png";
 
-            using (var fileStream = new FileStream(DataTransfer.CurentContact.QrCode, FileMode.Create))
+            SelectedContact.QrCode = Path.Combine(qrCodePath, qrCodeFileName);
+            using (var fileStream = new FileStream(SelectedContact.QrCode, FileMode.Create))
             {
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(QrCodeImage));
@@ -177,7 +175,6 @@ namespace ContactApp.ViewModel
             }
             else
                 OpenContactWindowMethod(SelectedContact);
-
             AddQrCodeMethod();
             UpdateWindowMethod();
             SaveDataMethod();

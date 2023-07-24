@@ -156,7 +156,8 @@
                 <TextBox Grid.Column="1" Grid.Row="10" Background="Transparent" BorderBrush="Black" BorderThickness="0.5" VerticalContentAlignment="Center"
                          Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Image Grid.ColumnSpan="2" Grid.Row="12" Source="{Binding SelectedContact.QrCode, UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding SelectedContact.Email}"/>
+                <Image Grid.ColumnSpan="2" Grid.Row="12" Source="{Binding SelectedContact.QrCode, UpdateSourceTrigger=PropertyChanged}"
+                       ToolTip="{Binding SelectedContact.Email}"/>
             </Grid>
 
             <!--#endregion-->
