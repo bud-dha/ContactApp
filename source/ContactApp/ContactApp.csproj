@@ -5,29 +5,22 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject>ContactApp.App</StartupObject>
-    <ApplicationIcon>icons8-contacts-100 (1).ico</ApplicationIcon>
-    <NeutralLanguage>ru</NeutralLanguage>
-    <PackageIcon>icons8-contacts-100.png</PackageIcon>
+    <ApplicationIcon>Resources\Images\icons8-contacts-100 (1).ico</ApplicationIcon>
+    <NeutralLanguage>ru</NeutralLanguage>    
     <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewModel\**" />
-    <EmbeddedResource Remove="ViewModel\**" />
-    <None Remove="ViewModel\**" />
-    <None Include="..\..\..\..\Desktop\Иконки\icons8-contacts-100.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <Page Remove="ViewModel\**" />
+    <None Remove="Resources\Images\icons8-contacts-30.png" />
+    <None Remove="Views\icons8-add-phone-48.png" />
+    <None Remove="Views\icons8-contacts-30.png" />
+    <None Remove="Views\icons8-edit-48.png" />
+    <None Remove="Views\icons8-remove-48.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\icons8-contacts-30.png" />
-    <None Remove="View\icons8-add-phone-48.png" />
-    <None Remove="View\icons8-contacts-30.png" />
-    <None Remove="View\icons8-edit-48.png" />
-    <None Remove="View\icons8-remove-48.png" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,4 +30,7 @@
     <Resource Include="Resources\Images\icons8-remove-48.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\QrCodes\" />
+  </ItemGroup>
 </Project>

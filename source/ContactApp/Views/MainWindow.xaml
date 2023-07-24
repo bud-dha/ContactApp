@@ -1,0 +1,167 @@
+﻿<Window 
+        x:Class="ContactApp.MainWindow"
+        xmlns:vm="clr-namespace:ContactApp.ViewModel"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+    
+        Title="ContactApp" Height="450" Width="800" MinHeight="450" MinWidth="800" Icon="\Resources\Images\icons8-contacts-30.png">
+
+    <!--#region DataContext-->
+    
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <!--#endregion-->
+
+    <!--#region Resources-->
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <!--#endregion-->
+
+    <Grid Background="{StaticResource MainBackground}">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="225" Width="250" MaxWidth="350"/>
+                <ColumnDefinition MinWidth="7" Width="7" MaxWidth="7"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <!--#region Меню-->
+            
+            <Menu Grid.ColumnSpan="4" Height="35" Background="Transparent">
+                <MenuItem Header="Файл">
+                    <MenuItem Header="Выход" Command="{Binding CloseAplicationCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Изменить">
+                    <MenuItem Header="Добавить контакт" Command="{Binding AddContactCommand}"/>
+                    <MenuItem Header="Редактировать контакт" Command="{Binding EditContactCommand}"/>
+                    <MenuItem Header="Удалить контакт" Command="{Binding RemoveContactCommand}" />
+                </MenuItem>
+            </Menu>
+            
+            <!--#endregion-->
+
+            <!--#region Область выбора-->
+            
+            <Label Grid.Row="1" Content="Контакты" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <ListBox Grid.Row="2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                     Background="Transparent" BorderBrush="Black" BorderThickness="1" Margin="0,5,0,0"
+                     ItemsSource="{Binding ListBoxContacts}" SelectedItem="{Binding SelectedContact}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="0,0,5,0"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="{Binding Surname}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Patronymic}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Height="30" Width="30" BorderThickness="0" Command="{Binding AddContactCommand}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Images/icons8-add-phone-48.png"/>
+                    </Button.Background>
+                </Button>
+
+                <Button Height="30" Width="30" Margin="15,0,0,0" BorderThickness="0" Command="{Binding EditContactCommand}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Images/icons8-edit-48.png"/>
+                    </Button.Background>
+                </Button>
+
+                <Button Height="30" Width="30" Margin="15,0,0,0" BorderThickness="0" Command="{Binding RemoveContactCommand}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Images/icons8-remove-48.png"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+
+            <!--#endregion-->
+
+            <GridSplitter Grid.Column="1" Grid.RowSpan="4" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch"/>
+
+            <!--#region Область отображения-->
+
+            <Label Grid.Column="2" Grid.Row="1" Content="Выбранный контакт" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Grid Grid.Column="2" Grid.Row="2" Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Content="ID" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="1" Background="Transparent" BorderBrush="Black" BorderThickness="0.5" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedContact.ID, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+
+                <Label Grid.Row="2" Content="Фамилия" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Background="Transparent" BorderBrush="Black" BorderThickness="0.5" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedContact.Surname, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="4" Content="Имя" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="4" Grid.Row="4" Background="Transparent" BorderBrush="Black" BorderThickness="0.5" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="6" Content="Отчество" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="1" Grid.Row="6" Background="Transparent" BorderBrush="Black" BorderThickness="0.5" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedContact.Patronymic, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="8" Content="Телефон" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="1" Grid.Row="8" Background="Transparent" BorderBrush="Black" BorderThickness="0.5" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="10" Content="Почта" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="1" Grid.Row="10" Background="Transparent" BorderBrush="Black" BorderThickness="0.5" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Image Grid.ColumnSpan="2" Grid.Row="12" Source="{Binding SelectedContact.QrCode, UpdateSourceTrigger=PropertyChanged}"
+                       ToolTip="{Binding SelectedContact.Email}"/>
+            </Grid>
+
+            <!--#endregion-->
+
+        </Grid>
+    </Grid>
+</Window>
